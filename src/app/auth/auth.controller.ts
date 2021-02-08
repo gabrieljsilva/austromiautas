@@ -4,20 +4,20 @@ import { ApiTags, ApiBody } from '@nestjs/swagger';
 
 import { User } from '../utils/user.decorator';
 import { User as UserEntity } from '../../shared/database/entities/User';
-import { SessionsActions } from './sessions.actions';
+import { AuthActions } from './auth.actions';
 import { CreateSessionDTO } from './DTO/create.dto';
 
 import { Protect } from './protect.decorator';
 
-@ApiTags('sessions')
-@Controller('sessions')
-export class SessionsController {
-  constructor(private readonly sessionsActions: SessionsActions) {}
+@ApiTags('auth')
+@Controller('auth')
+export class AuthController {
+  constructor(private readonly authActions: AuthActions) {}
 
   @ApiBody({ type: CreateSessionDTO })
-  @Protect('sessions', UseGuards(AuthGuard('local')))
+  @Protect('auth', UseGuards(AuthGuard('local')))
   @Post()
-  async create(@User() user: UserEntity) {
-    return this.sessionsActions.create(user);
+  async login(@User() user: UserEntity) {
+    return this.authActions.login(user);
   }
 }

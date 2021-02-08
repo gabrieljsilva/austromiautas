@@ -6,12 +6,12 @@ import { join } from 'path';
 
 import * as SMTP_CONFIG from '../../shared/smtp/config';
 
-import { HelloParams } from './templates/hello';
+import { confirmAccountParams } from './templates/confirmAccount';
 import { SendMailOptions } from './interfaces/SendMailOptions';
 
 @Processor('email')
 export class EmailProcessor {
-  transporter = createTransport({
+  private transporter = createTransport({
     host: SMTP_CONFIG.host,
     port: SMTP_CONFIG.port,
     secure: false,
@@ -21,17 +21,18 @@ export class EmailProcessor {
     },
   });
 
-  emailTemplatesDir = join(process.cwd(), 'src', 'app', 'emails', './templates');
+  private emailTemplatesDir = join(process.cwd(), 'src', 'app', 'emails', './templates');
 
   private async renderTemplate(template: string, data: unknown) {
     return await renderFile(join(this.emailTemplatesDir, template), data);
   }
 
-  @Process('sendHelloMail')
-  async sendHelloMail(job: Job<SendMailOptions<HelloParams>>) {
+  @Process('sendConfirmAccountEmail')
+  async sendConfirmAccountEmail(job: Job<SendMailOptions<confirmAccountParams>>) {
     const { data } = job;
     const { params, from, to, subject } = data;
-    const html = await this.renderTemplate('hello/index.ejs', params);
-    this.transporter.sendMail({ from, to, subject, html });
+
+    const html = await this.renderTemplate('confirmAccount/index.ejs', params);
+    await this.transporter.sendMail({ from, to, subject, html });
   }
 }

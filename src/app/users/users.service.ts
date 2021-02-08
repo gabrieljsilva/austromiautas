@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { JwtService } from '@nestjs/jwt';
 
 import { User } from '../../shared/database/entities/User';
 import { Role } from '../../shared/database/entities/Role';
-import { CreateUserDTO } from './dto/createuserDto';
 import { EmailsService } from '../emails/emails.service';
 
 @Injectable()
@@ -13,19 +13,8 @@ export class UsersService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
     private readonly emailsService: EmailsService,
+    private readonly jwtSevice: JwtService,
   ) {}
-
-  async store(userDto: CreateUserDTO) {
-    const user = this.userRepository.create(userDto);
-    await this.userRepository.save(user);
-    return user;
-  }
-
-  async findAll() {
-    return this.userRepository.find({
-      select: ['id', 'name', 'email', 'status', 'createdAt', 'updatedAt'],
-    });
-  }
 
   async findByEmail(email: string) {
     return await this.userRepository.findOne({ email });
@@ -64,5 +53,21 @@ export class UsersService {
         .andWhere('resources.name = :resource', { resource })
         .getCount()) > 0;
     return user;
+  }
+
+  async checkIfUserIsWaiting(userId: string) {
+    return (await this.userRepository.count({ where: { id: userId, status: 'waiting' } })) > 0;
+  }
+
+  async activateUser(userId: string) {
+    const user = await this.userRepository.findOne(userId);
+    user.status = 'active';
+    await this.userRepository.save(user);
+    return user;
+  }
+
+  async issueActivationToken(userId: string) {
+    const payload = { userId };
+    return this.jwtSevice.signAsync(payload, { subject: 'activation' });
   }
 }

@@ -2,20 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 
-import { HelloParams } from './templates/hello';
+import { confirmAccountParams } from './templates/confirmAccount';
+
 import { SendMailOptions } from './interfaces/SendMailOptions';
 
 @Injectable()
 export class EmailsService {
   constructor(@InjectQueue('email') private readonly mailQueue: Queue) {}
 
-  async sendHelloMail(to: string, params: HelloParams) {
-    const mailOptions: SendMailOptions<HelloParams> = {
-      subject: 'hello',
-      from: 'my@email.com',
+  async sendConfirmAccountEmail(to: string, params: confirmAccountParams) {
+    const mailOptions: SendMailOptions<confirmAccountParams> = {
+      subject: 'Confirm Your Account',
+      from: 'austromiautas@email.com',
       to,
       params,
     };
-    return this.mailQueue.add('sendHelloMail', mailOptions);
+    return this.mailQueue.add('sendConfirmAccountEmail', mailOptions);
   }
 }

@@ -1,25 +1,26 @@
-import { Injectable, ConflictException } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 
 import { UsersService } from './users.service';
-import { CreateUserDTO } from './dto/createuserDto';
 
 @Injectable()
 export class UsersActions {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService, private readonly jwtSevice: JwtService) {}
 
-  async create(userDTO: CreateUserDTO) {
-    const userExists = await this.usersService.checkIfUserExistsByEmail(userDTO.email);
+  async activateUser(token: string) {
+    try {
+      const { userId } = await this.jwtSevice.verify(token, { subject: 'activation' });
+      const userIsWaiting = await this.usersService.checkIfUserIsWaiting(userId);
 
-    if (userExists) {
-      throw new ConflictException('user already exists');
+      if (userIsWaiting) {
+        const user = await this.usersService.activateUser(userId);
+        delete user.password;
+        return user;
+      }
+
+      throw new Error();
+    } catch {
+      throw new BadRequestException('invalid token');
     }
-
-    const user = await this.usersService.store(userDTO);
-    delete user.password;
-    return user;
-  }
-
-  async list() {
-    return this.usersService.findAll();
   }
 }

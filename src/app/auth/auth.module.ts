@@ -2,9 +2,9 @@ import { Module, Global } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 
-import { SessionsService } from './sessions.service';
-import { SessionsActions } from './sessions.actions';
-import { SessionsController } from './sessions.controller';
+import { AuthService } from './auth.service';
+import { AuthActions } from './auth.actions';
+import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { LocalStrategy } from './local.strategy';
 
@@ -16,8 +16,8 @@ const JwtModuleConfig = {
 @Global()
 @Module({
   imports: [UsersModule, PassportModule, JwtModule.register(JwtModuleConfig)],
-  providers: [SessionsService, LocalStrategy, SessionsActions],
-  controllers: [SessionsController],
+  providers: [AuthService, LocalStrategy, AuthActions],
+  controllers: [AuthController],
   exports: [UsersModule, JwtModule.register(JwtModuleConfig)],
 })
-export class SessionsModule {}
+export class AuthModule {}

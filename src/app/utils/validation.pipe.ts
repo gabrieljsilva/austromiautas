@@ -3,10 +3,10 @@ import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 
 @Injectable()
-export class ValidationPipe<T = any> implements PipeTransform<T> {
-  async transform(value: any, { metatype }: ArgumentMetadata) {
-    const object = plainToClass(metatype, value, { strategy: 'excludeAll' });
-    const errors = await validate(object);
+export class ValidationPipe implements PipeTransform {
+  async transform(value: any, { metatype, type, data }: ArgumentMetadata) {
+    const DTO = plainToClass(metatype, value, { strategy: 'excludeAll' });
+    const errors = await validate(DTO);
 
     if (errors.length > 0) {
       const errorsDto = errors.map((error) => {
@@ -23,6 +23,6 @@ export class ValidationPipe<T = any> implements PipeTransform<T> {
       });
     }
 
-    return object;
+    return DTO;
   }
 }

@@ -7,8 +7,9 @@ import REDIS_CONFIG from '../shared/redis/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { SessionsModule } from './sessions/sessions.module';
+import { AuthModule } from './auth/auth.module';
 import { EmailsModule } from './emails/emails.module';
+import { DonatorsModule } from './donators/donators.module';
 
 import { User } from 'src/shared/database/entities/User';
 import { Role } from '../shared/database/entities/Role';
@@ -22,8 +23,9 @@ import { UserRole } from '../shared/database/entities/UserRole';
       redis: REDIS_CONFIG,
     }),
     UsersModule,
-    SessionsModule,
+    AuthModule,
     EmailsModule,
+    DonatorsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,4 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { UsersService } from '../users/users.service';
 
@@ -13,10 +13,16 @@ export class ProtectGuard implements CanActivate {
 
     if (user === 'guest') {
       const hasPermission = await this.usersService.checkGuestPermission(resource, method);
-      return hasPermission;
+      if (!hasPermission) {
+        throw new ForbiddenException('access denied');
+      }
+    } else {
+      const hasPermission = await this.usersService.checkUserPermission(request.user.id, resource, method);
+      if (!hasPermission) {
+        throw new ForbiddenException('access denied');
+      }
     }
 
-    const hasPermission = await this.usersService.checkUserPermission(request.user.id, resource, method);
-    return hasPermission;
+    return true;
   }
 }

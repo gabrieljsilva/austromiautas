@@ -51,13 +51,13 @@ $ npm run start:prod
 To use system authentication we need to feed the database with some initial data. Among the tables that need to be fed are: "roles", "resources" and "permissions".
 
 ### Resources table
-The "resources" table refers to the resources that users can manipulate through the system, to identify the resources we can look at the name that we put in the "controllers", in this example we will create 3 different resources and they are: "users", " customers "and" sessions "(this system uses JWT authentication and the sessions resource could be changed to" auth "for example, just assign the name" sessions "for semantic reasons).
+The "resources" table refers to the resources that users can manipulate through the system, to identify the resources we can look at the name that we put in the "controllers", in this example we will create 3 different resources and they are: "users", "customers" and "auth"(this system uses JWT authentication)
 
 our resource table should look like this:
 
 | id                                   | name      |
 |--------------------------------------|-----------|
-| f05be280-9846-4d06-b48c-fc74f05c6bf1 | sessions  |
+| f05be280-9846-4d06-b48c-fc74f05c6bf1 | auth      |
 | 35c66938-0fe7-4a49-b013-960481060812 | users     |
 | 5b645a3f-738b-429b-a57f-c7501a6e6f1c | customers |
 
@@ -84,16 +84,16 @@ As an example I will add some permissions using the data already registered abov
 
 We can read the following permissions as follows:
 
-"guest can post sessions" <br>
+"guest can post auth" <br>
 "guest can post users" <br>
 "admin can get customers" <br>
 
 ## Protecting resources
-To protect our routes we need to use a Decorator called "Protect", which can be found inside the "sessions" module, this decorator receives the resource name as the first parameter (same in the database) and the other parameters are other optional decorators. Example:
+To protect our routes we need to use a Decorator called "Protect", which can be found inside the "auth" module, this decorator receives the resource name as the first parameter (same in the database) and the other parameters are other optional decorators. Example:
 
 ```ts
 import { Controller, Get } from  '@nestjs/common';
-import { Protect } from  './sessions/protect.decorator';
+import { Protect } from './auth/protect.decorator';
 
 @Controller()
 export class AppController {
@@ -105,12 +105,12 @@ export class AppController {
 }
 ```
 
-In the example above we import the "Protect" decorator and decorate our "Get" route by passing the resource name as a parameter, every time this route is accessed by a user, this decorator will check the permissions in the database and check whether the accessor has the necessary permissions or not. If the user does not have permission to access any resource, a 403 error will be thrown, like this:
+In the example above we import the "Protect" decorator and decorate our "Get" route by passing the resource name as a parameter, every time this route is accessed by a client, this decorator will check the permissions in the database and check whether the accessor has the necessary permissions or not. If the user does not have permission to access any resource, a 403 error will be thrown, like this:
 
 ```json
 {
 	"statusCode":  403,
-	"message":  "Forbidden resource",
+	"message":  "access denied",
 	"error":  "Forbidden"
 }
 ```
