@@ -62,6 +62,7 @@ export class UsersService {
   async activateUser(userId: string) {
     const user = await this.userRepository.findOne(userId);
     user.status = 'active';
+    delete user.password; // avoid to rehash password
     await this.userRepository.save(user);
     return user;
   }

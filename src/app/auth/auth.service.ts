@@ -10,6 +10,7 @@ export class AuthService {
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
+
     const userNotExists = !user;
 
     if (userNotExists) {
@@ -20,9 +21,9 @@ export class AuthService {
       return null;
     }
 
-    try {
-      await compare(password, user.password);
-    } catch {
+    const match = await compare(password, user.password);
+
+    if (!match) {
       return null;
     }
 

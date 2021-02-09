@@ -1,5 +1,5 @@
 import { EntitySubscriberInterface, EventSubscriber, InsertEvent, UpdateEvent } from 'typeorm';
-import { hash } from 'bcrypt';
+import { hash, genSalt } from 'bcrypt';
 
 import { User } from '../entities/User';
 
@@ -10,12 +10,12 @@ export class UserSubscriber implements EntitySubscriberInterface<User> {
   }
 
   async beforeInsert(event: InsertEvent<User>) {
-    event.entity.password = await hash(event.entity.password, 8);
+    event.entity.password = await hash(event.entity.password, await genSalt(8));
   }
 
   async beforeUpdate(event: UpdateEvent<User>) {
     if (event.entity.password) {
-      event.entity.password = await hash(event.entity.password, 8);
+      event.entity.password = await hash(event.entity.password, await genSalt(8));
     }
   }
 }
