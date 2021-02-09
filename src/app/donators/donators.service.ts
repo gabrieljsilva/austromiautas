@@ -5,7 +5,7 @@ import { Repository, Connection } from 'typeorm';
 import { Donator } from '../../shared/database/entities/Donator';
 import { User } from '../../shared/database/entities/User';
 
-import { CreateDonatorDTO } from './DTO/createUserDTO';
+import { CreateDonatorDTO } from './DTO/createDonatorDTO';
 
 @Injectable()
 export class DonatorsService {

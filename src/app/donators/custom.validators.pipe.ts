@@ -2,7 +2,7 @@ import { Injectable, PipeTransform, ArgumentMetadata, BadRequestException, HttpS
 import { plainToClass } from 'class-transformer';
 import { validateOrReject } from 'class-validator';
 
-import { CreateDonatorDTO } from './DTO/createUserDTO';
+import { CreateDonatorDTO } from './DTO/createDonatorDTO';
 
 @Injectable()
 export class ValidateDonatorPipe implements PipeTransform {

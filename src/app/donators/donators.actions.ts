@@ -5,7 +5,7 @@ import { DonatorsService } from './donators.service';
 import { UsersService } from '../users/users.service';
 import { EmailsService } from '../emails/emails.service';
 
-import { CreateDonatorDTO } from './DTO/createUserDTO';
+import { CreateDonatorDTO } from './DTO/createDonatorDTO';
 
 @Injectable()
 export class DonatorsActions {

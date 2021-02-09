@@ -13,19 +13,12 @@ export class AuthService {
 
     const userNotExists = !user;
 
-    if (userNotExists) {
-      return null;
-    }
-
-    if (user.status !== 'active') {
-      return null;
-    }
+    if (userNotExists) return null;
+    if (user.status !== 'active') return null;
 
     const match = await compare(password, user.password);
 
-    if (!match) {
-      return null;
-    }
+    if (!match) return null;
 
     return user;
   }
