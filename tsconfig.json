@@ -12,5 +12,7 @@
     "baseUrl": "./",
     "incremental": true,
     "strict": false
-  }
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"],
 }

@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  api_v1:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes: 
+      - ./:/usr/app
+    ports: 
+      - ${APP_PORT}:${APP_PORT}
+    networks: 
+      - app
+    depends_on: 
+      - postgresdb
+      - redisdb
+
+  postgresdb:
+    image: postgres:13.1-alpine
+    environment: 
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=austromiautas
+    volumes:
+      - /var/lib/postgresql/data
+    ports: 
+      - ${DB_PORT}:${DB_PORT}
+    networks: 
+      - app
+
+  redisdb:
+    image: redis
+    networks: 
+      - app
+  
+networks:
+  app:
+

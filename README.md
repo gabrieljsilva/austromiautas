@@ -88,6 +88,20 @@ We can read the following permissions as follows:
 "guest can post users" <br>
 "admin can get customers" <br>
 
+### Seeding utility
+
+You can configure a utility to seed data in the following directory: "src/shared/database/seeder". The data to be seeded should not go to the repository.
+
+/*
+  This session is still being documented
+*/
+
+após configurado os dados rode o seguinte comando para aplicar as alterações:
+
+```bash
+npm run seeder:seed
+```
+
 ## Protecting resources
 To protect our routes we need to use a Decorator called "Protect", which can be found inside the "auth" module, this decorator receives the resource name as the first parameter (same in the database) and the other parameters are other optional decorators. Example:
 
@@ -136,7 +150,7 @@ This layer is responsible for interacting with the database, no layer other than
 
 ## Open API
 Open API is a specification for API documentation. Nestjs has an extension to work with Open API based on decorators. All Controllers, Actions and DTO (Data Transfer Object) must be mapped.
-[veja a documentação do Open Opi](https://docs.nestjs.com/openapi/introduction)
+[see the Open Opi documentation](https://docs.nestjs.com/openapi/introduction)
 
 ## Data Validation and Data Serialization
 All data received from the client must be validated and serialized to ensure that both actions and services receive the information necessary to execute the request. To validate and serialize we use two external libraries, they are: ["class-validator"](https://docs.nestjs.com/techniques/validation) and ["class-transformer"](https://docs.nestjs.com/techniques/serialization).
@@ -144,26 +158,20 @@ All data received from the client must be validated and serialized to ensure tha
 All DTOs must be declared within the "DTO" folder within their corresponding module. All DTO properties must be marked with the decorator "@Expose" from lib "class-transformer", this will guarantee that the data will be correctly serialized, without extra information or missing.
 
 ## Email Queue Jobs
-Este boilterplate possui uma implementação de processamento de email com Nodemailer e Bull. Ele está disponível no módulo global "emails".
+This boilterplate has an email processing implementation with Nodemailer and Bull. It is available in the global module "emails".
 
-## Docker Utilitie Commands
+## Docker Utility
 
-Postgres Database
-```bash
-  sudo docker run -d \
-  --name postgresdb \
-  -e POSTGRES_USER=docker \
-  -e POSTGRES_PASSWORD=docker \
-  -e POSTGRES_DB=austromiautas \
-  -v /var/lib/postgresql/data \
-  -p 5432:5432 \
-  postgres:13.1
-```
+We can run this project using Docker Compose. For that we must run the following command
 
+`` bash
+docker-compose --env-file .env up
+``
 
-Redis Database
-```bash
-  sudo docker run --name redisdb -d \
-  -p 6379:6379 \
-  redis
-```
+This command will delete the dist and node_modules folders and then recreate them when the container is starting. In addition, the postgres and redis databases will be instantiated.
+
+In the .env file add the following environment variables:
+- "DB_HOST" for "postgresdb";
+- "REDIS_HOST" to "redisdb".
+
+This configuration will allow you to connect the application directly over the Docker network.
