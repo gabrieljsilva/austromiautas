@@ -51,15 +51,15 @@ $ npm run start:prod
 To use system authentication we need to feed the database with some initial data. Among the tables that need to be fed are: "roles", "resources" and "permissions".
 
 ### Resources table
-The "resources" table refers to the resources that users can manipulate through the system, to identify the resources we can look at the name that we put in the "controllers", in this example we will create 3 different resources and they are: "users", "customers" and "auth"(this system uses JWT authentication)
+The "resources" table refers to the resources that users can manipulate through the system, to identify the resources we can look at the name that we put in the "controllers", in this example we will create 3 different resources and they are: "users", "customers" and "/auth/login"
 
 our resource table should look like this:
 
-| id                                   | name      |
-|--------------------------------------|-----------|
-| f05be280-9846-4d06-b48c-fc74f05c6bf1 | /auth/login      |
-| 35c66938-0fe7-4a49-b013-960481060812 | /users     |
-| 5b645a3f-738b-429b-a57f-c7501a6e6f1c | /customers |
+| id                                   | name        |
+|--------------------------------------|-----------  |
+| f05be280-9846-4d06-b48c-fc74f05c6bf1 | /auth/login |
+| 35c66938-0fe7-4a49-b013-960481060812 | /users      |
+| 5b645a3f-738b-429b-a57f-c7501a6e6f1c | /customers  |
 
 ### Roles table
 The "roles" table will contain all system user roles, including a "guest" user who is not directly registered in the database. In this example we will register 2 different types of user, they are: "guest" and "admin".
