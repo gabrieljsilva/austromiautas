@@ -34,7 +34,7 @@ export class createDonatorTable1612572965320 implements MigrationInterface {
           {
             name: 'birth',
             type: 'timestamp',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'userId',

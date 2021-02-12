@@ -38,22 +38,22 @@ export class DonatorsService {
     });
   }
 
-  async findAll() {
+  async findAllJuridicalPerson() {
     const qb = this.donatorRepository.createQueryBuilder('donator');
     const [donators, count] = await qb
       .leftJoinAndSelect('donator.user', 'users')
       .select([
         'donator.id',
         'donator.name',
-        'donator.type',
         'donator.document',
-        'donator.birth',
         'donator.createdAt',
         'donator.updatedAt',
         'users.id',
         'users.email',
         'users.status',
       ])
+      .where('type = :type', { type: 'cnpj' })
+      .andWhere('users.status = :status', { status: 'active' })
       .getManyAndCount();
 
     return { donators, count };

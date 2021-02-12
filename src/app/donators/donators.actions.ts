@@ -42,6 +42,6 @@ export class DonatorsActions {
   }
 
   async list() {
-    return this.donatorService.findAll();
+    return this.donatorService.findAllJuridicalPerson();
   }
 }

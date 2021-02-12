@@ -12,14 +12,15 @@ import { Protect } from '../auth/protect.decorator';
 export class DonatorsController {
   constructor(private readonly donatorsActions: DonatorsActions) {}
 
-  @Protect('donators')
+  @Protect()
   @Post()
   async create(@Body(new ValidateDonatorPipe()) createDonatorDTO: CreateDonatorDTO) {
     return await this.donatorsActions.create(createDonatorDTO);
   }
 
+  @Protect()
   @Get()
   async list() {
-    return await this.donatorsActions.list();
+    return this.donatorsActions.list();
   }
 }

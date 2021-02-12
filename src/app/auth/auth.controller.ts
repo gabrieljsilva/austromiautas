@@ -15,8 +15,8 @@ export class AuthController {
   constructor(private readonly authActions: AuthActions) {}
 
   @ApiBody({ type: CreateSessionDTO })
-  @Protect('auth', UseGuards(AuthGuard('local')))
-  @Post()
+  @Protect(UseGuards(AuthGuard('local')))
+  @Post('login')
   async login(@User() user: UserEntity) {
     return this.authActions.login(user);
   }

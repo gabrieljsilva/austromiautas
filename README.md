@@ -57,9 +57,9 @@ our resource table should look like this:
 
 | id                                   | name      |
 |--------------------------------------|-----------|
-| f05be280-9846-4d06-b48c-fc74f05c6bf1 | auth      |
-| 35c66938-0fe7-4a49-b013-960481060812 | users     |
-| 5b645a3f-738b-429b-a57f-c7501a6e6f1c | customers |
+| f05be280-9846-4d06-b48c-fc74f05c6bf1 | /auth/login      |
+| 35c66938-0fe7-4a49-b013-960481060812 | /users     |
+| 5b645a3f-738b-429b-a57f-c7501a6e6f1c | /customers |
 
 ### Roles table
 The "roles" table will contain all system user roles, including a "guest" user who is not directly registered in the database. In this example we will register 2 different types of user, they are: "guest" and "admin".
@@ -84,9 +84,9 @@ As an example I will add some permissions using the data already registered abov
 
 We can read the following permissions as follows:
 
-"guest can post auth" <br>
-"guest can post users" <br>
-"admin can get customers" <br>
+"guest can post /auth/login" <br>
+"guest can post /users" <br>
+"admin can get /customers" <br>
 
 ### Seeding utility
 

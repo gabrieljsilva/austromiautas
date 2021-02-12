@@ -5,7 +5,7 @@ import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/
 
 import { AppModule } from './app/app.module';
 
-async function bootstrap() {
+(async () => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.enableCors({ origin: '*' });
@@ -26,5 +26,4 @@ async function bootstrap() {
 
   const { APP_PORT } = process.env;
   await app.listen(Number(APP_PORT));
-}
-bootstrap();
+})();
