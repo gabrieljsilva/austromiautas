@@ -28,7 +28,7 @@ Create a file called ".env" at the root of the project. Then add the following e
 | SMTP_PASSWORD | The SMTP password that will be used as relay by email services                               | your_smtp_password  |
 
 ## Running the migrations
-Before starting the application we need to run the existing migrations in ```src/shared/database/migrations```. To do this, run one of the following commands:
+Before starting the application we need to run the existing migrations in ```src/shared/database/migrations```. To do this, run the following command:
  
 ```bash
 $ npm run migration:run

@@ -18,6 +18,7 @@ export class ValidateDonatorPipe implements PipeTransform {
       await validateOrReject(deterministcDTO, { groups: ['deterministic'] });
 
       const DTO = plainToClass(CreateDonatorDTO, value, { strategy: 'excludeAll', groups: [deterministcDTO.type] });
+
       await validateOrReject(DTO, { groups: [deterministcDTO.type] });
 
       return DTO;

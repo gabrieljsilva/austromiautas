@@ -1,5 +1,5 @@
-import { Expose, Transform, TransformFnParams } from 'class-transformer';
-import { Matches, IsEmail, Length, IsDateString, Validate, IsUrl } from 'class-validator';
+import { Expose } from 'class-transformer';
+import { Matches, IsEmail, Length, IsDateString, Validate, IsUrl, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsCPF } from '../../utils/validators/IsCPF';
@@ -13,7 +13,6 @@ export class CreateDonatorDTO {
 
   @ApiProperty({ required: true, description: 'e-mail of user that will be used to authentication' })
   @Expose()
-  @Transform((email) => email.value.toLowerCase())
   @IsEmail({}, { groups: ['cpf', 'cnpj'] })
   email: string;
 
@@ -40,7 +39,6 @@ export class CreateDonatorDTO {
   @Expose()
   @Validate(IsCPF, { groups: ['cpf'] })
   @Validate(IsCNPJ, { groups: ['cnpj'] })
-  @Transform((document) => document.value.replace(/[^\d]+/g, ''))
   document: string;
 
   @ApiProperty({ required: false, description: 'user birth in case type equals to cpf' })

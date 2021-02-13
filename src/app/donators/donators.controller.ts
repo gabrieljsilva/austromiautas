@@ -1,5 +1,5 @@
 import { Controller, Post, Get, Body } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 
 import { DonatorsActions } from './donators.actions';
 import { CreateDonatorDTO } from './DTO/createDonatorDTO';

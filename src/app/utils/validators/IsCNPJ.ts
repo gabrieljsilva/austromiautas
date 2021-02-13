@@ -14,7 +14,7 @@ const CNPJ_BLACKLIST = [
 ];
 
 function isCNPJ(cnpj: string) {
-  cnpj = cnpj.replace(/[^\d]+/g, '');
+  if (!cnpj) return false;
 
   if (cnpj === '') return false;
 

@@ -7,7 +7,6 @@ export class ValidationPipe implements PipeTransform {
   async transform(value: any, { metatype, type, data }: ArgumentMetadata) {
     const DTO = plainToClass(metatype, value, { strategy: 'excludeAll' });
     const errors = await validate(DTO);
-
     if (errors.length > 0) {
       const errorsDto = errors.map((error) => {
         return {
