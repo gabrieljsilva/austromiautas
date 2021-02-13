@@ -8,9 +8,11 @@ import { EmailsService } from '../emails/emails.service';
 
 import { Donator } from '../../shared/database/entities/Donator';
 import { User } from '../../shared/database/entities/User';
+import { Role } from '../../shared/database/entities/Role';
+import { UserRole } from '../../shared/database/entities/UserRole';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Donator, User])],
+  imports: [TypeOrmModule.forFeature([Donator, User, Role, UserRole])],
   controllers: [DonatorsController],
   providers: [DonatorsService, DonatorsActions, EmailsService],
 })

@@ -14,10 +14,12 @@ const CPF_BLACK_LIST = [
 ];
 
 function isCPF(cpf: string): boolean {
-  if (cpf == null) {
+  cpf = cpf.replace(/[^\d]+/g, '');
+
+  if (cpf === null) {
     return false;
   }
-  if (cpf.length != 11) {
+  if (cpf.length !== 11) {
     return false;
   }
   if (CPF_BLACK_LIST.includes(cpf)) {

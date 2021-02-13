@@ -4,6 +4,8 @@ import { Repository, Connection } from 'typeorm';
 
 import { Donator } from '../../shared/database/entities/Donator';
 import { User } from '../../shared/database/entities/User';
+import { UserRole } from '../../shared/database/entities/UserRole';
+import { Role } from '../../shared/database/entities/Role';
 
 import { CreateDonatorDTO } from './DTO/createDonatorDTO';
 
@@ -12,6 +14,8 @@ export class DonatorsService {
   constructor(
     @InjectRepository(Donator) private readonly donatorRepository: Repository<Donator>,
     @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(UserRole) private readonly userRoleRepository: Repository<UserRole>,
+    @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
     @InjectConnection() private readonly connection: Connection,
   ) {}
 
@@ -22,7 +26,6 @@ export class DonatorsService {
         password: createDonatorDTO.password,
         status: 'waiting',
       });
-
       await entityManager.save(user);
 
       const donator = this.donatorRepository.create({
@@ -32,8 +35,13 @@ export class DonatorsService {
         birth: createDonatorDTO.birth,
         userId: user.id,
       });
-
       await entityManager.save(donator);
+
+      const donatorRole = await this.roleRepository.findOne({ where: { name: 'donator' } });
+
+      const userRole = this.userRoleRepository.create({ role_id: donatorRole.id, user_id: user.id });
+      await entityManager.save(userRole);
+
       return { donator, user };
     });
   }
@@ -50,7 +58,6 @@ export class DonatorsService {
         'donator.updatedAt',
         'users.id',
         'users.email',
-        'users.status',
       ])
       .where('type = :type', { type: 'cnpj' })
       .andWhere('users.status = :status', { status: 'active' })

@@ -19,14 +19,14 @@ import { seedPermissions } from './seeders/permissions';
       resource: '/donators',
     },
     {
-      role: 'guest',
-      method: 'GET',
-      resource: '/donators',
-    },
-    {
       role: 'donator',
       method: 'POST',
       resource: '/donators/addresses',
+    },
+    {
+      role: 'donator',
+      method: 'GET',
+      resource: '/donators',
     },
     {
       role: 'guest',
