@@ -48,7 +48,17 @@ $ npm run start:prod
 ```
 
 ## Providing initial data to database
-To use system authentication we need to feed the database with some initial data. Among the tables that need to be fed are: "roles", "resources" and "permissions".
+To use system authentication we need to feed the database with some initial data. Among the tables that need to be fed are: "access_tokens", "roles", "resources" and "permissions".
+
+### access_tokens Table
+This table is part of the access control to the API, it is responsible for storing the host name and the token that will determine who can use the API. This is different from the role-based access control system, as this system only tells you which host has access to the API
+The id of this table is the access token and with the host we can determine if the client has access. We will create a record of a token, to which the host "localhost" will have access, and in the description we will add only the word "development" which means that it is a local development token. If you have domain, you can register it in host to give access in production.
+
+| id                                   | description |    host   |
+|--------------------------------------|-------------|-----------|
+| bbaffed0-8eac-4d34-bfe2-e83b89dbf40b | development | localhost |
+
+All API endpoints will wait for an attribute called "token" in the request header.
 
 ### Resources table
 The "resources" table refers to the resources that users can manipulate through the system, to identify the resources we can look at the name that we put in the "controllers", in this example we will create 3 different resources and they are: "users", "customers" and "/auth/login"
