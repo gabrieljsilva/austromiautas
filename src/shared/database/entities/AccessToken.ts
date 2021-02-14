@@ -8,6 +8,9 @@ export class AccessToken {
   @Column()
   host: string;
 
+  @Column()
+  protocol: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

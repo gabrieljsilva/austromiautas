@@ -20,6 +20,13 @@ export class createAccessTokensTable1613324213653 implements MigrationInterface 
             isNullable: false,
           },
           {
+            name: 'protocol',
+            type: 'enum',
+            enum: ['http', 'https'],
+            isNullable: false,
+            default: "'http'",
+          },
+          {
             name: 'description',
             type: 'text',
             isNullable: false,

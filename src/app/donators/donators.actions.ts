@@ -15,7 +15,7 @@ export class DonatorsActions {
     private readonly emailsService: EmailsService,
   ) {}
 
-  async create(createDonatorDTO: CreateDonatorDTO) {
+  async create(createDonatorDTO: CreateDonatorDTO, magicLinkHost: string, magicLinkProtocol: string) {
     const userAlreadyExistsWithEmail = await this.usersService.checkIfUserExistsByEmail(createDonatorDTO.email);
     if (userAlreadyExistsWithEmail) {
       throw new ConflictException('user already exists');
@@ -31,7 +31,7 @@ export class DonatorsActions {
     const { donator, user } = await this.donatorService.store(createDonatorDTO);
 
     const token = await this.usersService.issueActivationToken(user.id);
-    const magicLink = `${createDonatorDTO.frontEndActivationUrl}?token=${token}`;
+    const magicLink = `${magicLinkProtocol}://${magicLinkHost}/users/activate?token=${token}`;
 
     await this.emailsService.sendConfirmAccountEmail(createDonatorDTO.email, {
       userName: createDonatorDTO.name,

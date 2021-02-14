@@ -35,7 +35,7 @@ export class AuthService {
     return this.jwtService.sign(payload);
   }
 
-  async validateAccessToken(token: string, host: string) {
-    return (await this.accessTokenRepository.count({ where: { id: token, host } })) > 0;
+  async findAccessToken(token: string, host: string) {
+    return this.accessTokenRepository.findOne({ where: { id: token, host } });
   }
 }
