@@ -16,6 +16,10 @@ const CPF_BLACK_LIST = [
 function isCPF(cpf: string): boolean {
   if (!cpf) return false;
 
+  if (typeof cpf !== 'string') return false;
+
+  cpf = cpf.replace(/[^\d]+/g, '');
+
   if (cpf.length !== 11) {
     return false;
   }

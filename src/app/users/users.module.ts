@@ -9,8 +9,6 @@ import { UsersActions } from './users.actions';
 import { User } from '../../shared/database/entities/User';
 import { Role } from '../../shared/database/entities/Role';
 
-import { EmailsService } from '../emails/emails.service';
-
 const JwtModuleConfig = {
   secret: process.env.APP_SECRET,
   signOptions: { expiresIn: '24h' },
@@ -19,7 +17,7 @@ const JwtModuleConfig = {
 @Module({
   imports: [TypeOrmModule.forFeature([User, Role]), JwtModule.register(JwtModuleConfig)],
   controllers: [UsersController],
-  providers: [UsersService, UsersActions, EmailsService],
+  providers: [UsersService, UsersActions],
   exports: [UsersService],
 })
 export class UsersModule {}

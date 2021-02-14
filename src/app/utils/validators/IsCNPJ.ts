@@ -16,9 +16,11 @@ const CNPJ_BLACKLIST = [
 function isCNPJ(cnpj: string) {
   if (!cnpj) return false;
 
-  if (cnpj === '') return false;
+  if (typeof cnpj !== 'string') return false;
 
-  if (cnpj.length != 14) return false;
+  cnpj = cnpj.replace(/[^\d]+/g, '');
+
+  if (cnpj.length !== 14) return false;
 
   if (CNPJ_BLACKLIST.includes(cnpj)) return false;
 

@@ -5,14 +5,12 @@ import { JwtService } from '@nestjs/jwt';
 
 import { User } from '../../shared/database/entities/User';
 import { Role } from '../../shared/database/entities/Role';
-import { EmailsService } from '../emails/emails.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
     @InjectRepository(Role) private readonly roleRepository: Repository<Role>,
-    private readonly emailsService: EmailsService,
     private readonly jwtSevice: JwtService,
   ) {}
 
