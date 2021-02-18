@@ -1,5 +1,7 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
+import { STATES } from '../../enums/STATES';
+
 export class createAddressesTable1613086596633 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     return queryRunner.createTable(
@@ -36,35 +38,7 @@ export class createAddressesTable1613086596633 implements MigrationInterface {
           {
             name: 'state',
             type: 'enum',
-            enum: [
-              'AC',
-              'AL',
-              'AP',
-              'AM',
-              'BA',
-              'CE',
-              'ES',
-              'GO',
-              'MA',
-              'MT',
-              'MS',
-              'MG',
-              'PA',
-              'PB',
-              'PR',
-              'PE',
-              'PI',
-              'RJ',
-              'RN',
-              'RS',
-              'RO',
-              'RR',
-              'SC',
-              'SP',
-              'SE',
-              'TO',
-              'DF',
-            ],
+            enum: Object.values(STATES),
             isNullable: false,
           },
           {

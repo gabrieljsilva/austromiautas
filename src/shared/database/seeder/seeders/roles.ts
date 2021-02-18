@@ -1,10 +1,19 @@
 import { Connection } from 'typeorm';
 
 export async function seedRoles(connection: Connection, roles: string[]) {
-  const qb = connection.createQueryBuilder();
-  return qb
-    .insert()
-    .into('roles')
-    .values(roles.map((name) => ({ name })))
-    .execute();
+  await Promise.all(
+    roles.map(async (name) => {
+      const roleNotExists =
+        (await connection
+          .createQueryBuilder()
+          .select()
+          .from('roles', 'roles')
+          .where('roles.name = :name', { name })
+          .getCount()) === 0;
+
+      if (roleNotExists) {
+        return connection.createQueryBuilder().insert().into('roles').values({ name }).execute();
+      }
+    }),
+  );
 }

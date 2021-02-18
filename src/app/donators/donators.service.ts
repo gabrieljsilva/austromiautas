@@ -46,6 +46,10 @@ export class DonatorsService {
     });
   }
 
+  async findDonatorByUserId(userId: string) {
+    return await this.donatorRepository.findOne({ where: { userId: userId } });
+  }
+
   async findAllJuridicalPerson() {
     const qb = this.donatorRepository.createQueryBuilder('donator');
     const [donators, count] = await qb

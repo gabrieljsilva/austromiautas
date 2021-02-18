@@ -47,13 +47,4 @@ export class CreateDonatorDTO {
   @Expose({ groups: ['cpf'] })
   @IsDateString({ strict: false }, { groups: ['cpf'] })
   birth: Date;
-
-  @ApiProperty({
-    required: true,
-    description:
-      "the url that will be sent by email to compose the account confirmation link. This Url will receive a query param called 'token'.",
-  })
-  @Expose({ groups: ['cpf', 'cnpj'] })
-  @IsUrl({ require_tld: false }, { groups: ['cpf', 'cnpj'] })
-  frontEndActivationUrl: string;
 }

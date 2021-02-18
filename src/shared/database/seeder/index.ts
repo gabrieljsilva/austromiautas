@@ -26,6 +26,21 @@ import { seedPermissions } from './seeders/permissions';
     {
       role: 'donator',
       method: 'GET',
+      resource: '/donators/addresses',
+    },
+    {
+      role: 'donator',
+      method: 'PUT',
+      resource: '/donators/addresses',
+    },
+    {
+      role: 'donator',
+      method: 'DELETE',
+      resource: '/donators/addresses',
+    },
+    {
+      role: 'donator',
+      method: 'GET',
       resource: '/donators',
     },
     {

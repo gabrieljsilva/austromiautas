@@ -1,10 +1,19 @@
 import { Connection } from 'typeorm';
 
 export async function seedResources(connection: Connection, resources: string[]) {
-  const qb = connection.createQueryBuilder();
-  return qb
-    .insert()
-    .into('resources')
-    .values(resources.map((name) => ({ name })))
-    .execute();
+  return await Promise.all(
+    resources.map(async (name) => {
+      const resourceNotExists =
+        (await connection
+          .createQueryBuilder()
+          .select()
+          .from('resources', 'resources')
+          .where('resources.name = :name', { name })
+          .getCount()) === 0;
+
+      if (resourceNotExists) {
+        return connection.createQueryBuilder().insert().into('resources').values({ name }).execute();
+      }
+    }),
+  );
 }

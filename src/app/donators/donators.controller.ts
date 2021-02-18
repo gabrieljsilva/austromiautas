@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Req } from '@nestjs/common';
+import { Controller, Post, Get, Body } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { DonatorsActions } from './donators.actions';

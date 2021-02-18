@@ -27,18 +27,30 @@ export async function seedPermissions(connection: Connection, permissions: Permi
         .where('resources.name = :name', { name: permission.resource })
         .getOne()) as ObjectId;
 
-      return connection
-        .createQueryBuilder()
-        .insert()
-        .into('permissions')
-        .values([
-          {
-            role_id: role.id,
-            method: permission.method,
-            resource_id: resource.id,
-          },
-        ])
-        .execute();
+      const permissionNotExists =
+        (await connection
+          .createQueryBuilder()
+          .select()
+          .from('permissions', 'permissions')
+          .where('permissions.role_id = :role', { role: role.id })
+          .andWhere('permissions.method = :method', { method: permission.method })
+          .andWhere('permissions.resource_id = :resource', { resource: resource.id })
+          .getCount()) === 0;
+
+      if (permissionNotExists) {
+        return connection
+          .createQueryBuilder()
+          .insert()
+          .into('permissions')
+          .values([
+            {
+              role_id: role.id,
+              method: permission.method,
+              resource_id: resource.id,
+            },
+          ])
+          .execute();
+      }
     }),
   );
 }
