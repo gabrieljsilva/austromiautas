@@ -92,7 +92,7 @@ After installing Docker and setting the environment variables, we can run the fo
 docker-compose --env-file .env up
 ```
 
-On linux-based systems we need to give some permissions to the "docker / entrypoint.sh" file. To do this, run the following command:
+On linux-based systems we need to give some permissions to the "docker/entrypoint.sh" file. To do this, run the following command:
 
 ```bash
 sudo chmod +x docker/entrypoint.sh
