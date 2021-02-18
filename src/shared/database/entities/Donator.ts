@@ -6,8 +6,10 @@ import {
   UpdateDateColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
+import { Contact } from './Contact';
 import { User } from './User';
 
 @Entity('donators')
@@ -30,9 +32,13 @@ export class Donator {
   @Column()
   userId: string;
 
-  @OneToOne((type) => User)
+  @OneToOne(() => User)
   @JoinColumn({ referencedColumnName: 'id', name: 'userId' })
   user: User;
+
+  @OneToMany(() => Contact, (donator) => donator.contact)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  contacts: Contact[];
 
   @CreateDateColumn()
   createdAt: Date;

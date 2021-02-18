@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { EmailsModule } from './emails/emails.module';
 import { DonatorsModule } from './donators/donators.module';
 import { AddressesModule } from './donators/addresses/addresses.module';
+import { ContactsModule } from './donators/contacts/contacts.module';
 
 import { User } from 'src/shared/database/entities/User';
 import { Role } from '../shared/database/entities/Role';
@@ -28,6 +29,7 @@ import { UserRole } from '../shared/database/entities/UserRole';
     EmailsModule,
     DonatorsModule,
     AddressesModule,
+    ContactsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

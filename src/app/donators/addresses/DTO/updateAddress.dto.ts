@@ -5,43 +5,43 @@ import { ApiProperty } from '@nestjs/swagger';
 import { STATES } from '../../../../shared/enums/STATES';
 
 export class UpdateAddressDTO {
-  @ApiProperty({ description: 'Rua/Logradouro', required: false })
+  @ApiProperty({ required: false })
   @Expose()
   @IsOptional()
   @IsString()
   street: string;
 
-  @ApiProperty({ description: 'Número', required: false })
+  @ApiProperty({ required: false })
   @Expose()
   @IsOptional()
   @IsString()
   number: string;
 
-  @ApiProperty({ description: 'Bairro', required: false })
+  @ApiProperty({ required: false })
   @Expose()
   @IsOptional()
   @IsString()
   neighborhood: string;
 
-  @ApiProperty({ description: 'Cidade', required: false })
+  @ApiProperty({ required: false })
   @Expose()
   @IsOptional()
   @IsString()
   city: string;
 
-  @ApiProperty({ description: 'UF', enum: STATES, required: false })
+  @ApiProperty({ enum: STATES, required: false })
   @Expose()
   @IsOptional()
   @IsEnum(STATES)
   state: string;
 
-  @ApiProperty({ description: 'Latitude', required: false })
+  @ApiProperty({ required: false })
   @Expose()
   @IsOptional()
   @IsLatitude()
   latitude: number;
 
-  @ApiProperty({ description: 'Longitude', required: false })
+  @ApiProperty({ required: false })
   @Expose()
   @IsOptional()
   @IsLongitude()

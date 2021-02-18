@@ -1,4 +1,4 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, ForbiddenException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 
@@ -12,7 +12,7 @@ export class AuthenticateGuard implements CanActivate {
     if (tokenWasSent) {
       const [bearer, token] = bearerToken.split(' ');
       if (bearer !== 'Bearer' || !token) {
-        return false;
+        throw new ForbiddenException('invalid token');
       }
 
       try {
@@ -22,7 +22,7 @@ export class AuthenticateGuard implements CanActivate {
         request.user = user;
         return true;
       } catch {
-        return false;
+        throw new ForbiddenException('invalid token');
       }
     }
     request.user = 'guest';

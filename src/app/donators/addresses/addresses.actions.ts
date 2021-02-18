@@ -3,8 +3,6 @@ import { Injectable, ConflictException, NotFoundException } from '@nestjs/common
 import { AddressesService } from './addresses.service';
 import { DonatorsService } from '../donators.service';
 
-import { User } from '../../../shared/database/entities/User';
-
 import { CreateAddressDTO } from './DTO/createAddress.dto';
 import { UpdateAddressDTO } from './DTO/updateAddress.dto';
 import { Donator } from 'src/shared/database/entities/Donator';
