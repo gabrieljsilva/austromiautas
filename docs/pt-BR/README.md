@@ -87,7 +87,7 @@ Aqui veremos alguns conceitos importantes para garantir que o ambiente esteja ad
 [Docker](https://www.docker.com/) é uma poderosa ferramenta de virtualização, com ela podemos subir aplicações em containers de forma rápida e fácil utilizando apenas alguns comandos. Este projeto está configurado para ser utilizado em um ambiente Dockerizado.
 Depois de instalar o Docker e configurar as variáveis de ambiente, podemos executar o seguinte comando:
 ```bash
-docker-compose --env-file .env up
+docker-compose up
 ```
 Em sistemas baseados em linux precisamos dar algumas permissões no arquivo "docker/entrypoint.sh". Para isso execute o seguinte comando:
 
@@ -96,7 +96,7 @@ sudo chmod +x docker/entrypoint.sh
 ```
 e então:
 ```bash
-sudo docker-compose --env-file .env up
+sudo docker-compose up
 ```
 Isso deve garantir as permissões adequadas para executar a aplicação.
 
