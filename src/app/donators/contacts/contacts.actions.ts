@@ -1,4 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+
+import { CONTACTS } from '../../../shared/enums/CONTACTS';
 
 import { ContactsService } from './contacts.service';
 import { Donator } from '../../../shared/database/entities/Donator';
@@ -42,6 +44,19 @@ export class ContactsActions {
       }
     }
 
+    const donatorWhatsappContactsCount = await this.contactsService.countDonatorContactsByType(
+      donator.id,
+      CONTACTS.whatsapp,
+    );
+
+    if (donatorWhatsappContactsCount <= 1) {
+      if (updateContactDTO.type !== CONTACTS.whatsapp) {
+        if (updateContactDTO.type !== undefined) {
+          throw new BadRequestException('you must keep at least 1 whatsapp contact');
+        }
+      }
+    }
+
     const contact = await this.contactsService.findDonatorContactById(contactId, donator.id);
 
     return this.contactsService.update(contact, updateContactDTO);
@@ -52,6 +67,15 @@ export class ContactsActions {
 
     if (contactNotExists) {
       throw new NotFoundException('contact not found');
+    }
+
+    const donatorWhatsappContactsCount = await this.contactsService.countDonatorContactsByType(
+      donator.id,
+      CONTACTS.whatsapp,
+    );
+
+    if (donatorWhatsappContactsCount <= 1) {
+      throw new BadRequestException('you must keep at least 1 whatsapp contact');
     }
 
     const contact = await this.contactsService.findDonatorContactById(contactId, donator.id);

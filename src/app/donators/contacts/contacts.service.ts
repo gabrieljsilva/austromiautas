@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { CONTACTS } from '../../../shared/enums/CONTACTS';
+
 import { Contact } from '../../../shared/database/entities/Contact';
 
 import { CreateContactDTO } from './DTO/createContactDTO';
@@ -42,6 +44,10 @@ export class ContactsService {
       where: { donatorId },
       select: ['id', 'type', 'contact', 'createdAt', 'updatedAt'],
     });
+  }
+
+  async countDonatorContactsByType(donatorId: string, contactType: CONTACTS) {
+    return this.contactRepository.count({ where: { donatorId: donatorId, type: contactType } });
   }
 
   async checkIfDonatorContactExistsById(contactId: string, donatorId: string) {

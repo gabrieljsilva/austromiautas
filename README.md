@@ -89,7 +89,7 @@ Here we will see some important concepts to ensure that the environment is adequ
 After installing Docker and setting the environment variables, we can run the following command:
 
 ```bash
-docker-compose --env-file .env up
+docker-compose up
 ```
 
 On linux-based systems we need to give some permissions to the "docker/entrypoint.sh" file. To do this, run the following command:
@@ -101,7 +101,7 @@ sudo chmod +x docker/entrypoint.sh
 and then:
 
 ```bash
-sudo docker-compose --env-file .env up
+sudo docker-compose up
 ```
 
 This should ensure adequate permissions to run the application.
