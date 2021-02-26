@@ -10,8 +10,10 @@ export class DonatorInterceptor implements NestInterceptor {
   async intercept(context: ExecutionContext, Next: CallHandler) {
     const request = context.switchToHttp().getRequest();
     const user: User = request.user;
-    const donator = await this.donatorService.findDonatorByUserId(user.id);
-    request.donator = donator;
+    if (user) {
+      const donator = await this.donatorService.findDonatorByUserId(user.id);
+      request.donator = donator;
+    }
     return Next.handle();
   }
 }

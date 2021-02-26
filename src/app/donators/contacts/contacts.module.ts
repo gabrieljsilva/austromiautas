@@ -12,5 +12,6 @@ import { Contact } from '../../../shared/database/entities/Contact';
   imports: [TypeOrmModule.forFeature([Contact]), DonatorsModule],
   controllers: [ContactsController],
   providers: [ContactsService, ContactsActions],
+  exports: [ContactsService],
 })
 export class ContactsModule {}

@@ -14,6 +14,10 @@ import { seedPermissions } from './seeders/permissions';
     '/donators/contacts',
     '/donators/contacts/:id',
     '/users/activate',
+    '/pets',
+    '/pets/:id',
+    '/pets/:id/adopt',
+    '/pets/:id/adopt/confirm',
   ]);
   await seedPermissions(connection, [
     {
@@ -95,6 +99,51 @@ import { seedPermissions } from './seeders/permissions';
       role: 'guest',
       method: 'GET',
       resource: '/',
+    },
+    {
+      role: 'donator',
+      method: 'POST',
+      resource: '/pets',
+    },
+    {
+      role: 'donator',
+      method: 'GET',
+      resource: '/pets',
+    },
+    {
+      role: 'donator',
+      method: 'GET',
+      resource: '/pets/:id',
+    },
+    {
+      role: 'donator',
+      method: 'PUT',
+      resource: '/pets/:id',
+    },
+    {
+      role: 'donator',
+      method: 'DELETE',
+      resource: '/pets/:id',
+    },
+    {
+      role: 'guest',
+      method: 'GET',
+      resource: '/pets',
+    },
+    {
+      role: 'guest',
+      method: 'GET',
+      resource: '/pets/:id',
+    },
+    {
+      role: 'guest',
+      method: 'POST',
+      resource: '/pets/:id/adopt',
+    },
+    {
+      role: 'donator',
+      method: 'PUT',
+      resource: '/pets/:id/adopt/confirm',
     },
   ]);
 })();

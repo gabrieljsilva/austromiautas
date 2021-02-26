@@ -29,7 +29,7 @@ services:
       - app
 
   redisdb:
-    image: redis
+    image: redis:6.2.0
     networks: 
       - app
   
