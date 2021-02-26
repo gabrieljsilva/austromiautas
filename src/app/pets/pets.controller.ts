@@ -1,4 +1,6 @@
 import { Controller, Body, UseInterceptors, Param, Get, Post, Delete, Put } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { PetsActions } from './pets.actions';
 
 import { ValidationPipe } from '../utils/validation.pipe';
@@ -12,6 +14,7 @@ import { AdoptPetDTO } from './DTO/adoptPet.dto';
 
 import { Donator as DonatorEntity } from '../../shared/database/entities/Donator';
 
+@ApiTags('pets')
 @Protect()
 @Controller('pets')
 export class PetsController {
