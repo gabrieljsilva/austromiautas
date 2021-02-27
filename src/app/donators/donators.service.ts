@@ -54,16 +54,7 @@ export class DonatorsService {
   async findAllJuridicalPerson(options: IPaginationOptions) {
     const qb = this.donatorRepository.createQueryBuilder('donator');
 
-    qb.leftJoinAndSelect('donator.user', 'users')
-      .select([
-        'donator.id',
-        'donator.name',
-        'donator.document',
-        'donator.createdAt',
-        'donator.updatedAt',
-        'users.id',
-        'users.email',
-      ])
+    qb.select(['donator.id', 'donator.name', 'donator.document', 'donator.createdAt', 'donator.updatedAt'])
       .where('type = :type', { type: 'cnpj' })
       .andWhere('users.status = :status', { status: 'active' });
 
