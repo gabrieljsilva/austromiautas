@@ -1,2 +1,2 @@
-npm install
+npm install --silent
 npm run start:dev

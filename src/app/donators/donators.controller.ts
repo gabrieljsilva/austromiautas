@@ -1,5 +1,5 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
-import { ApiTags, ApiSecurity } from '@nestjs/swagger';
+import { Controller, Post, Get, Body, ParseIntPipe, Query } from '@nestjs/common';
+import { ApiTags, ApiSecurity, ApiQuery } from '@nestjs/swagger';
 
 import { DonatorsActions } from './donators.actions';
 import { CreateDonatorDTO } from './DTO/createDonatorDTO';
@@ -25,8 +25,10 @@ export class DonatorsController {
     return await this.donatorsActions.create(createDonatorDTO, accessToken.host, accessToken.protocol);
   }
 
+  @ApiQuery({ name: 'page', required: false, schema: { type: 'integer' } })
+  @ApiQuery({ name: 'limit', required: false, schema: { type: 'integer' } })
   @Get()
-  async list() {
-    return this.donatorsActions.list();
+  async listNgos(@Query('page', ParseIntPipe) page = 0, @Query('limit') limit = 10) {
+    return this.donatorsActions.listNgos(page, limit);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository, InjectConnection } from '@nestjs/typeorm';
 import { Repository, Connection } from 'typeorm';
+import { paginate, Pagination, IPaginationOptions } from 'nestjs-typeorm-paginate';
 
 import { Donator } from '../../shared/database/entities/Donator';
 import { User } from '../../shared/database/entities/User';
@@ -50,10 +51,10 @@ export class DonatorsService {
     return await this.donatorRepository.findOne({ where: { userId: userId } });
   }
 
-  async findAllJuridicalPerson() {
+  async findAllJuridicalPerson(options: IPaginationOptions) {
     const qb = this.donatorRepository.createQueryBuilder('donator');
-    const [donators, count] = await qb
-      .leftJoinAndSelect('donator.user', 'users')
+
+    qb.leftJoinAndSelect('donator.user', 'users')
       .select([
         'donator.id',
         'donator.name',
@@ -64,10 +65,9 @@ export class DonatorsService {
         'users.email',
       ])
       .where('type = :type', { type: 'cnpj' })
-      .andWhere('users.status = :status', { status: 'active' })
-      .getManyAndCount();
+      .andWhere('users.status = :status', { status: 'active' });
 
-    return { donators, count };
+    return paginate<Donator>(qb, options);
   }
 
   async checkIfDonatorExistsByDocument(document: string) {

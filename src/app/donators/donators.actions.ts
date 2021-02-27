@@ -36,12 +36,13 @@ export class DonatorsActions {
     await this.emailsService.sendConfirmAccountEmail(createDonatorDTO.email, {
       userName: createDonatorDTO.name,
       magicLink,
+      token,
     });
 
     return donator;
   }
 
-  async list() {
-    return this.donatorService.findAllJuridicalPerson();
+  async listNgos(page: number, limit: number) {
+    return this.donatorService.findAllJuridicalPerson({ page, limit });
   }
 }

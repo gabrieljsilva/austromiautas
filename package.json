@@ -40,6 +40,7 @@
     "class-validator": "^0.13.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
+    "nestjs-typeorm-paginate": "^2.3.2",
     "nodemailer": "^6.4.17",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
