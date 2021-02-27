@@ -74,11 +74,12 @@ export class ContactsActions {
       CONTACTS.whatsapp,
     );
 
-    if (donatorWhatsappContactsCount <= 1) {
+    const contact = await this.contactsService.findDonatorContactById(contactId, donator.id);
+
+    if (donatorWhatsappContactsCount <= 1 && contact.type === CONTACTS.whatsapp) {
       throw new BadRequestException('you must keep at least 1 whatsapp contact');
     }
 
-    const contact = await this.contactsService.findDonatorContactById(contactId, donator.id);
     return await this.contactsService.delete(contact);
   }
 }

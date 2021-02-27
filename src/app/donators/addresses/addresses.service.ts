@@ -32,6 +32,20 @@ export class AddressesService {
   }
 
   async findAddressByDonatorId(donatorId: string) {
-    return this.addressRepository.findOne({ where: { donatorId } });
+    return this.addressRepository.findOne({
+      where: { donatorId },
+      select: [
+        'id',
+        'street',
+        'number',
+        'neighborhood',
+        'city',
+        'state',
+        'latitude',
+        'longitude',
+        'createdAt',
+        'updatedAt',
+      ],
+    });
   }
 }

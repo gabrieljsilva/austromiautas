@@ -28,6 +28,7 @@ export class AddressesActions {
     }
 
     const address = await this.addressesService.store(createAddressDTO, donator.id);
+    delete address.donatorId;
     return address;
   }
 
@@ -49,6 +50,7 @@ export class AddressesActions {
     }
 
     const address = await this.addressesService.update(updateAddressDTO, donator.id);
+    delete address.donatorId;
     return address;
   }
 
@@ -58,6 +60,8 @@ export class AddressesActions {
       throw new NotFoundException('address not found');
     }
     const address = await this.addressesService.findAddressByDonatorId(donator.id);
-    return this.addressesService.delete(address);
+    const deletedAddress = await this.addressesService.delete(address);
+    delete deletedAddress.donatorId;
+    return deletedAddress;
   }
 }
