@@ -12,6 +12,12 @@ import { AppModule } from './app/app.module';
   app.setViewEngine('ejs');
 
   const config = new DocumentBuilder()
+    .addSecurity('basic', {
+      type: 'apiKey',
+      in: 'header',
+      name: 'X-API-TOKEN',
+    })
+    .addBearerAuth()
     .setTitle('Austromiautas')
     .setDescription('API Reference for Austromiautas Project')
     .setVersion('1.0.0')

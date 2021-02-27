@@ -1,5 +1,5 @@
 import { Controller, UseInterceptors, Body, Post, Get, Put, Delete, Param } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiSecurity } from '@nestjs/swagger';
 
 import { Protect } from '../../auth/protect.decorator';
 import { ValidationPipe } from '../../utils/validation.pipe';
@@ -12,6 +12,8 @@ import { CreateContactDTO } from './DTO/createContactDTO';
 import { UpdateContactDTO } from './DTO/updateContact.DTO';
 
 @ApiTags("Donator's Contacts")
+@ApiSecurity('basic')
+@ApiBearerAuth()
 @Protect()
 @UseInterceptors(DonatorInterceptor)
 @Controller('donators/contacts')

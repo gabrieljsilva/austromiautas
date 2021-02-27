@@ -1,11 +1,12 @@
 import { Controller, Put, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiSecurity } from '@nestjs/swagger';
 
 import { UsersActions } from './users.actions';
 
 import { Protect } from '../auth/protect.decorator';
 
 @ApiTags('users')
+@ApiSecurity('basic')
 @Protect()
 @Controller('users')
 export class UsersController {

@@ -149,10 +149,10 @@ Este projeto possui dois sistemas de autorização, podemos categorizá-las em:
 
 ### Autorização passiva
 Este tipo de autorização determina que apenas usuários portadores de um token passivo poderão acessar os endpoint da API, ou seja, todos os endpoints estão restritos, somente quem possui um token passivo poderá acessar a API. 
-Este sistema é utilizado para controlar o uso geral da API. Além do token passivo, outras informações são utilizadas para determinar quem possui autorização e esta informação é o hostname e protocolo (http ou https) do client que está consumindo a API.
+Este sistema é utilizado para controlar o uso geral da API. Além do token passivo, outras informações são utilizadas para determinar quem possui autorização e esta informação é o hostname e protocolo (http ou https) do client que está consumindo a API. O Token passivo deve ser passado no cabeçalho de todas as requisições com o nome de "X-API-TOKEN".
 
 ### Autorização ativa
-A autorização ativa determina que apenas usuários portadores de um token ativo poderão acessar endpoints protegidos. Essencialmente, tokens ativos estão no formado de JWT (json web tokens) e ele carrega a identificação do usuário que está acessando os endpoints. Tokens ativos possuem um tempo de expiração que pode variar de acordo com a sua finalidade.
+A autorização ativa determina que apenas usuários portadores de um token ativo poderão acessar endpoints protegidos. Essencialmente, tokens ativos estão no formado de JWT (json web tokens) e ele carrega a identificação do usuário que está acessando os endpoints. Tokens ativos possuem um tempo de expiração que pode variar de acordo com a sua finalidade. O Token ativo deve ser passado como um Bearer Token.
 Este sistema é utilizado em conjunto com o sistema de autenticação e permissões.
 
 ### Determinando permissões

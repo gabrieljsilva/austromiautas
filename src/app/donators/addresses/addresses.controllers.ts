@@ -1,5 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Body, UseInterceptors } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiSecurity, ApiBearerAuth } from '@nestjs/swagger';
 
 import { Protect } from '../../auth/protect.decorator';
 import { ValidationPipe } from '../../utils/validation.pipe';
@@ -12,6 +12,8 @@ import { CreateAddressDTO } from './DTO/createAddress.dto';
 import { UpdateAddressDTO } from './DTO/updateAddress.dto';
 
 @ApiTags("donator's addresses")
+@ApiSecurity('basic')
+@ApiBearerAuth()
 @Protect()
 @UseInterceptors(DonatorInterceptor)
 @Controller('donators/addresses')

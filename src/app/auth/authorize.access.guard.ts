@@ -9,7 +9,8 @@ export class AuthorizeAccessGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
-    const passiveToken = request.headers.token;
+    const passiveToken = request.headers['x-api-token'];
+
     const requestHost = request.hostname;
 
     if (!passiveToken) throw new ForbiddenException('passive token not provided');

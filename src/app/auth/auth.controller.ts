@@ -1,6 +1,6 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiBody, ApiSecurity } from '@nestjs/swagger';
 
 import { User } from '../utils/user.decorator';
 import { User as UserEntity } from '../../shared/database/entities/User';
@@ -10,6 +10,7 @@ import { CreateSessionDTO } from './DTO/create.dto';
 import { Protect } from './protect.decorator';
 
 @ApiTags('auth')
+@ApiSecurity('basic')
 @Protect()
 @Controller('auth')
 export class AuthController {

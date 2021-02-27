@@ -45,7 +45,7 @@ APP_SECRET=someSecretString
 ```
 
 ## Typeorm
-[Typeorm](https://typeorm.io/) is an ORM focused on typescript, it works very well to manage connections to the database, generate migrations, entities and subscribers. The settings for Typeorm can be found in the "ormconfig.js" file located at the root of the project. For the other files (migrations, entities, subscribers and seeders) are located in the following directory: "src / shared / database". You can change this directory in the ormconfig.js file.
+[Typeorm](https://typeorm.io/) is an ORM focused on typescript, it works very well to manage connections to the database, generate migrations, entities and subscribers. The settings for Typeorm can be found in the "ormconfig.js" file located at the root of the project. For the other files (migrations, entities, subscribers and seeders) are located in the following directory: "src/shared/database". You can change this directory in the ormconfig.js file.
 
 ## Migrations
 Migrations is a very useful feature in software development, it ensures that the database is always up to date, even when there are several developers in the project, in addition to maintaining a "timeline" of the changes made during the development and maintenance of the project. . Migrations are declarations in typescript code to make changes to the database, so we can execute these changes all at once using the [Typeorm command line utility](https://typeorm.io/#/using-cli).
@@ -149,7 +149,7 @@ replace "appContainerId" with the id you copied, the command should look like:
 docker exec -it cd4ba6f0b5df /bin/ash
 ```
 
-This will open the container shell in the "/ usr / app" directory where the project files are located, from here you can already execute the codes to run the migrations and seeders.
+This will open the container shell in the "/usr/app" directory where the project files are located, from here you can already execute the codes to run the migrations and seeders.
 
 ## Authorization
 This project has two authorization systems, we can categorize them in:
@@ -158,16 +158,16 @@ This project has two authorization systems, we can categorize them in:
 
 ### Passive authorization
 This type of authorization determines that only users with a passive token will be able to access the API endpoints, that is, all endpoints are restricted, only those who have a passive token will be able to access the API.
-This system is used to control the general use of the API. In addition to the passive token, other information is used to determine who has authorization and this information is the hostname and protocol (http or https) of the client that is consuming the API.
+This system is used to control the general use of the API. In addition to the passive token, other information is used to determine who has authorization and this information is the hostname and protocol (http or https) of the client that is consuming the API. The passive token must be passed as a header with the name "X-API-TOKEN".
 
 ### Active authorization
-Active authorization determines that only users with an active token will be able to access protected endpoints. Essentially, active tokens are in the form of JWT (json web tokens) and it carries the identification of the user who is accessing the endpoints. Active tokens have an expiration time that can vary according to their purpose.
+Active authorization determines that only users with an active token will be able to access protected endpoints. Essentially, active tokens are in the form of JWT (json web tokens) and it carries the identification of the user who is accessing the endpoints. Active tokens have an expiration time that can vary according to their purpose. Active token must be passed as Bearer Token.
 This system is used in conjunction with the authentication and permissions system.
 
 ### Determining permissions
-This project has an authentication and authorization system based on [JWT](https://jwt.io/) and [RBAC.](Https://en.wikipedia.org/wiki/Role-based_access_control)
+This project has an authentication and authorization system based on [JWT](https://jwt.io/) and [RBAC.](https://en.wikipedia.org/wiki/Role-based_access_control)
 
-Initially, we need to decorate all the controllers declared with the "Protect" decorator, we can find it in the following directory "src / app / auth / protect.decorator.ts". Implementation example:
+Initially, we need to decorate all the controllers declared with the "Protect" decorator, we can find it in the following directory "src/app/auth/protect.decorator.ts". Implementation example:
 
 ```ts
 import { Controller, Get } from  '@nestjs/common';
@@ -252,9 +252,9 @@ In this project we use a library called ["Bull"](https://github.com/OptimalBits/
 In the directory "src/app/emails" we have a module aimed at processing and sending emails. We use a library called "EJS" for rendering models and a library called "Nodemailer" to dispatch them to recipients.
 
 ## Open API
-[Open API](https://www.openapis.org/), also known as Swagger is a specification for Rest / full APIs. Nestjs has a [module](https://docs.nestjs.com/openapi/introduction) focused on the Open API. The entire API specification must be generated through this module.
+[Open API](https://www.openapis.org/), also known as Swagger is a specification for Rest/full APIs. Nestjs has a [module](https://docs.nestjs.com/openapi/introduction) focused on the Open API. The entire API specification must be generated through this module.
 
-We can access the specification through the following endpoint: "/ api_v1". It is important to note that all endpoints, as well as their DTOs, must be well documented.
+We can access the specification through the following endpoint: "/api_v1". It is important to note that all endpoints, as well as their DTOs, must be well documented.
 
 # Standards
 All projects need to follow a standard to maintain the quality of the software, thus facilitating that other programmers can work on the same project without so many difficulties. In this project, some standards should also be followed.

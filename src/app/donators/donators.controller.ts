@@ -1,5 +1,5 @@
 import { Controller, Post, Get, Body } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiSecurity } from '@nestjs/swagger';
 
 import { DonatorsActions } from './donators.actions';
 import { CreateDonatorDTO } from './DTO/createDonatorDTO';
@@ -11,6 +11,7 @@ import { AccessToken as AccessTokenEntity } from '../../shared/database/entities
 import { Protect } from '../auth/protect.decorator';
 
 @ApiTags('donators')
+@ApiSecurity('basic')
 @Protect()
 @Controller('donators')
 export class DonatorsController {
