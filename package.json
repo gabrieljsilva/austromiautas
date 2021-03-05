@@ -1,6 +1,6 @@
 {
   "name": "austromiautas",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "author": "",
   "private": false,
@@ -34,7 +34,7 @@
     "@nestjs/platform-express": "^7.5.1",
     "@nestjs/swagger": "^4.7.12",
     "@nestjs/typeorm": "^7.1.5",
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^5.0.1",
     "bull": "^3.20.0",
     "class-transformer": "^0.3.2",
     "class-validator": "^0.13.1",
@@ -50,13 +50,13 @@
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
     "swagger-ui-express": "^4.1.6",
-    "typeorm": "^0.2.29"
+    "typeorm": "^0.2.29",
+    "ts-node": "^9.1.1"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.1",
     "@nestjs/schematics": "^7.1.3",
     "@nestjs/testing": "^7.5.1",
-    "@types/bcrypt": "^3.0.0",
     "@types/bull": "^3.15.0",
     "@types/ejs": "^3.0.5",
     "@types/express": "^4.17.8",
@@ -77,7 +77,6 @@
     "supertest": "^6.0.0",
     "ts-jest": "^26.4.3",
     "ts-loader": "^8.0.8",
-    "ts-node": "^9.1.1",
     "tsconfig-paths": "^3.9.0",
     "typescript": "^4.0.5"
   },

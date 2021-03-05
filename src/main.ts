@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
+import * as version from '../version.js';
 
 import { AppModule } from './app/app.module';
 
@@ -20,7 +21,7 @@ import { AppModule } from './app/app.module';
     .addBearerAuth()
     .setTitle('Austromiautas')
     .setDescription('API Reference for Austromiautas Project')
-    .setVersion('1.0.0')
+    .setVersion(version)
     .build();
 
   const options: SwaggerDocumentOptions = {

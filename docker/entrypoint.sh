@@ -1,2 +1,2 @@
-npm install --silent
-npm run start:dev
+yarn install --silent
+yarn start:dev

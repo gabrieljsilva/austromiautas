@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiSecurity } from '@nestjs/swagger';
+import * as version from '../../version.js';
 
 import { Protect } from './auth/protect.decorator';
 
@@ -12,6 +13,6 @@ export class AppController {
   @Protect()
   @Get()
   hello() {
-    return { message: 'Austromiautas', version: '1.0.0' };
+    return { message: 'Austromiautas', version };
   }
 }
