@@ -1,6 +1,8 @@
 import { Expose } from 'class-transformer';
-import { Length, IsEnum, IsBoolean, IsString } from 'class-validator';
+import { Length, IsEnum, IsBoolean, IsString, Validate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+import { IsValidPetAge } from '../../utils/validators/IsValidPetAge';
 
 import { PETS } from '../../../shared/enums/PETS';
 import { GENDERS } from '../../../shared/enums/GENDERS';
@@ -34,7 +36,7 @@ export class CreatePetDTO {
   @ApiProperty()
   @Expose()
   @IsString()
-  // custom validator here
+  @Validate(IsValidPetAge)
   approximatedAge: string;
 
   @ApiProperty()

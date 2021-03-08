@@ -11,6 +11,9 @@ export class AccessToken {
   @Column()
   protocol: string;
 
+  @Column()
+  description: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

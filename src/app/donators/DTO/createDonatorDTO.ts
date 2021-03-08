@@ -1,9 +1,10 @@
 import { Expose, Transform } from 'class-transformer';
-import { Matches, IsEmail, Length, IsDateString, Validate, IsUrl } from 'class-validator';
+import { Matches, IsEmail, Length, IsDateString, Validate } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsCPF } from '../../utils/validators/IsCPF';
 import { IsCNPJ } from '../../utils/validators/IsCNPJ';
+import { IsValidBirth } from '../../utils/validators/IsValidBirth';
 
 export class CreateDonatorDTO {
   @ApiProperty({ required: true, description: 'name of physical or juridical person that will be registered' })
@@ -43,8 +44,9 @@ export class CreateDonatorDTO {
   @Validate(IsCNPJ, { groups: ['cnpj'] })
   document: string;
 
-  @ApiProperty({ required: false, description: 'user birth in case type equals to cpf' })
+  @ApiProperty({ required: false, description: 'user birth in case type equals to cpf: format yyyy-mm-dd' })
   @Expose({ groups: ['cpf'] })
   @IsDateString({ strict: false }, { groups: ['cpf'] })
+  @Validate(IsValidBirth, { groups: ['cpf'] })
   birth: Date;
 }

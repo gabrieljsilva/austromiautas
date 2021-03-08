@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 
 import { AccessToken } from '../../shared/database/entities/AccessToken';
 import { UsersService } from '../users/users.service';
+import { host } from 'src/shared/smtp/config';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +15,26 @@ export class AuthService {
     private jwtService: JwtService,
     @InjectRepository(AccessToken) private accessTokenRepository: Repository<AccessToken>,
   ) {}
+
+  async onModuleInit() {
+    if (process.env.NODE_ENV === 'development') {
+      const localHostnames = ['localhost', '0.0.0.0', '127.0.0.1'];
+      await Promise.all(
+        localHostnames.map(async (hostname) => {
+          const localAccessToken = await this.findAccessTokenByHost(hostname);
+          if (!localAccessToken) {
+            const accessToken = this.accessTokenRepository.create({
+              host: hostname,
+              protocol: 'http',
+              description: 'development',
+            });
+
+            await this.accessTokenRepository.save(accessToken);
+          }
+        }),
+      );
+    }
+  }
 
   async validateUser(email: string, password: string) {
     const user = await this.usersService.findByEmail(email);
@@ -37,5 +58,9 @@ export class AuthService {
 
   async findAccessToken(token: string, host: string) {
     return this.accessTokenRepository.findOne({ where: { id: token, host } });
+  }
+
+  async findAccessTokenByHost(host: string) {
+    return this.accessTokenRepository.findOne({ where: { host } });
   }
 }

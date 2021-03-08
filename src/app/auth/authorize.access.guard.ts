@@ -13,17 +13,21 @@ export class AuthorizeAccessGuard implements CanActivate {
 
     const requestHost = request.hostname;
 
-    if (!passiveToken) throw new ForbiddenException('passive token not provided');
+    if (process.env.NODE_ENV !== 'development') {
+      if (!passiveToken) throw new ForbiddenException('passive token not provided');
 
-    const accessToken = await this.authService.findAccessToken(passiveToken, requestHost);
+      const accessToken = await this.authService.findAccessToken(passiveToken, requestHost);
 
-    const accessTokenIsInvalid = !accessToken;
+      const accessTokenIsInvalid = !accessToken;
 
-    if (accessTokenIsInvalid) {
-      throw new ForbiddenException('invalid passive token');
+      if (accessTokenIsInvalid) {
+        throw new ForbiddenException('invalid passive token');
+      }
+
+      request.accessToken = accessToken;
     }
 
-    request.accessToken = accessToken;
+    request.accessToken = await this.authService.findAccessTokenByHost(requestHost);
 
     return true;
   }
