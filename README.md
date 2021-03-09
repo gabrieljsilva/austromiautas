@@ -106,6 +106,13 @@ sudo docker-compose up
 
 This should ensure adequate permissions to run the application.
 
+All versions must be sent to the docker hub, to do this, execute the following command:
+
+```
+docker build -t namespace/austromiautas:version -t namespace/austromiautas:latest --rm --target production .
+
+```
+
 ### Comments
 It is recommended to use docker-compose only in development environments.
 
