@@ -6,6 +6,8 @@ import { UsersService } from '../users/users.service';
 import { EmailsService } from '../emails/emails.service';
 
 import { CreateDonatorDTO } from './DTO/createDonatorDTO';
+import { AccessToken } from '../../shared/database/entities/AccessToken';
+import { generateMagicLink } from '../utils/generateMagicLink';
 
 @Injectable()
 export class DonatorsActions {
@@ -15,7 +17,7 @@ export class DonatorsActions {
     private readonly emailsService: EmailsService,
   ) {}
 
-  async create(createDonatorDTO: CreateDonatorDTO, magicLinkHost: string, magicLinkProtocol: string) {
+  async create(createDonatorDTO: CreateDonatorDTO, accessToken: AccessToken) {
     const userAlreadyExistsWithEmail = await this.usersService.checkIfUserExistsByEmail(createDonatorDTO.email);
     if (userAlreadyExistsWithEmail) {
       throw new ConflictException('user already exists');
@@ -31,7 +33,7 @@ export class DonatorsActions {
     const { donator, user } = await this.donatorService.store(createDonatorDTO);
 
     const token = await this.usersService.issueActivationToken(user.id);
-    const magicLink = `${magicLinkProtocol}://${magicLinkHost}/users/activate?token=${token}`;
+    const magicLink = generateMagicLink(token, accessToken);
 
     await this.emailsService.sendConfirmAccountEmail(createDonatorDTO.email, {
       userName: createDonatorDTO.name,

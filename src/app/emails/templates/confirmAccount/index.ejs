@@ -1,5 +1,49 @@
-<h1>Olá, <%- userName %>! </h1>
-<p>Estamos quase lá!</p>
-<button> <a href="<%- magicLink %>">Clique aqui para confirmar sua conta</a></button>
-<p>Ou copie e cole o seguinte código: </p>
-<p> <%- token %> </p>
+<body style="margin:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #fff; background-color: #4B6CC0;">
+<header style="background-color: #4B6CC0;">
+    <img src="https://i.imgur.com/ihETPfz.png" alt="Logo austromiautas" width="100%">
+</header>
+<main 
+    style="
+    background-color: #4B6CC0;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;"
+>
+    <h1 
+    style="margin-top: 0; 
+    padding-top: 1em; 
+    text-align: center;"
+    >
+    Olá, <%- userName %>!<br>Seja bem vindo(a) ao Austromiautas
+    </h1>
+    <p 
+    style="
+    font-size: 18px; 
+    text-align: center;"
+    >
+    Você está recebendo esse email
+    por ter se cadastrado no site Austromiautas.<br/>
+    Para confirmar o seu cadastro e começar a utilizar o nosso sistema,
+    clique no botão abaixo.
+    </p>
+    <br/>
+    <section style="display: flex; justify-content: center;">
+    <a href="<%- magicLink %>" 
+    style="cursor: pointer; 
+    border-radius: 5em; 
+    border: none; 
+    font-size: 15px; 
+    padding: 1em; 
+    background-color: #202567; 
+    color: #fff;
+    text-decoration: none;
+    text-align: center;"
+    >
+    Confirme que é você
+    </a>
+    </section>
+</main>
+<footer style="background-color: #4B6CC0;">
+    <img src="https://i.imgur.com/Xyr1Ur7.png" width="100%" alt="rodapé da página">
+</footer>
+</body>

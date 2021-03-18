@@ -22,7 +22,7 @@ export class DonatorsController {
     @Body(new ValidateDonatorPipe()) createDonatorDTO: CreateDonatorDTO,
     @AccessToken() accessToken: AccessTokenEntity,
   ) {
-    return await this.donatorsActions.create(createDonatorDTO, accessToken.host, accessToken.protocol);
+    return await this.donatorsActions.create(createDonatorDTO, accessToken);
   }
 
   @ApiQuery({ name: 'page', required: false, schema: { type: 'integer' } })

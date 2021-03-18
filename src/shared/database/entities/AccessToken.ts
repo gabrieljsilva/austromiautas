@@ -12,6 +12,9 @@ export class AccessToken {
   protocol: string;
 
   @Column()
+  port: string;
+
+  @Column()
   description: string;
 
   @CreateDateColumn()

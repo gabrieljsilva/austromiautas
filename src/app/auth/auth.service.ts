@@ -27,6 +27,7 @@ export class AuthService {
               host: hostname,
               protocol: 'http',
               description: 'development',
+              port: '80',
             });
 
             await this.accessTokenRepository.save(accessToken);
