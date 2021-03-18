@@ -15,23 +15,24 @@ npm install
 ## Variáveis de ambiente
 Para assegurar que o nosso projeto seja executado perfeitamente, precisamos declarar algumas variáveis de ambiente, são elas:
 
-| NAME          | DESCRIPTION                                                                                 | EXAMPLES               |
-|---------------|---------------------------------------------------------------------------------------------|------------------------|
-| APP_HOST      | O nome do host que será usado para executar a aplicação.                                    | localhost              |
-| APP_PORT      | A porta que será usada para executar a aplicação.                                           | 3333                   |
-| APP_PROTOCOL  | O protocolo que será usado pelo aplicativo (http ou https).                                 | http                   |
-| APP_SECRET    | Chave privada usada para criptografar dados do aplicativo.                                  | SomeHashedSecretString |
-| DB_HOST       | O nome do host do banco de dados.                                                           | localhost              |
-| DB_PORT       | A porta do banco de dados.                                                                  | 5432                   |
-| DB_USER       | O usuário do banco de dados.                                                                | docker                 |
-| DB_PASSWORD   | A senha do usuário do banco de dados.                                                       | docker                 |
-| DB_NAME       | O nome do banco de dados.                                                                   | austromiautas          |
-| REDIS_HOST    | O nome do host do banco de dados redis.                                                     | localhost              |
-| REDIS_PORT    | A porta do banco de dados redis.                                                            | 6379                   |
-| SMTP_HOST     | O nome do host SMTP que será usado para relay por serviços de e-mail.                       | smtp.mailtrap.io       |
-| SMTP_PORT     | A porta SMTP que será usada para relay por serviços de e-mail.                              | 2525                   |
-| SMTP_USER     | O usuário SMTP que será usado para relay por serviços de e-mail.                            | your_smtp_username     |
-| SMTP_PASSWORD | A senha SMTP que será usada para relay por serviços de e-mail.                              | your_smtp_password     |
+| NAME             | DESCRIPTION                                                                                 | EXAMPLES               |
+|------------------|---------------------------------------------------------------------------------------------|------------------------|
+| APP_HOST         | O nome do host que será usado para executar a aplicação.                                    | localhost              |
+| APP_PORT         | A porta que será usada para executar a aplicação.                                           | 3333                   |
+| APP_PROTOCOL     | O protocolo que será usado pelo aplicativo (http ou https).                                 | http                   |
+| APP_SECRET       | Chave privada usada para criptografar dados do aplicativo.                                  | SomeHashedSecretString |
+| DB_HOST          | O nome do host do banco de dados.                                                           | localhost              |
+| DB_PORT          | A porta do banco de dados.                                                                  | 5432                   |
+| DB_USER          | O usuário do banco de dados.                                                                | docker                 |
+| DB_PASSWORD      | A senha do usuário do banco de dados.                                                       | docker                 |
+| DB_NAME          | O nome do banco de dados.                                                                   | austromiautas          |
+| REDIS_HOST       | O nome do host do banco de dados redis.                                                     | localhost              |
+| REDIS_PORT       | A porta do banco de dados redis.                                                            | 6379                   |
+| SMTP_HOST        | O nome do host SMTP que será usado para relay por serviços de e-mail.                       | smtp.mailtrap.io       |
+| SMTP_PORT        | A porta SMTP que será usada para relay por serviços de e-mail.                              | 2525                   |
+| SMTP_USER        | O usuário SMTP que será usado para relay por serviços de e-mail.                            | your_smtp_username     |
+| SMTP_PASSWORD    | A senha SMTP que será usada para relay por serviços de e-mail.                              | your_smtp_password     |
+| ENABLE_HTTP_LOGS | Exibe os logs de requisições http                                                           | true                   |
 
 Para carregá-las crie um arquivo chamado ".env" na raiz do projeto e preencha com as variáveis de ambiente acima. Todas as variáveis de ambiente acima são obrigatórias.
 

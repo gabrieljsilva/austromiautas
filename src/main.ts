@@ -3,11 +3,18 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
 import * as version from '../version.js';
+import * as morgan from 'morgan';
 
 import { AppModule } from './app/app.module';
 
+const { ENABLE_HTTP_LOGS } = process.env;
+
 (async () => {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  if (ENABLE_HTTP_LOGS === 'true') {
+    app.use(morgan('tiny'));
+  }
 
   app.enableCors({ origin: '*' });
   app.setViewEngine('ejs');

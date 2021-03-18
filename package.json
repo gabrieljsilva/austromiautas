@@ -1,6 +1,6 @@
 {
   "name": "austromiautas",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "author": "",
   "private": false,
@@ -41,6 +41,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
+    "morgan": "^1.10.0",
     "nestjs-typeorm-paginate": "^2.3.2",
     "nodemailer": "^6.4.17",
     "passport": "^0.4.1",
