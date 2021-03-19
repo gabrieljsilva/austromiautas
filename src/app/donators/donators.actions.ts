@@ -9,6 +9,9 @@ import { CreateDonatorDTO } from './DTO/createDonatorDTO';
 import { AccessToken } from '../../shared/database/entities/AccessToken';
 import { generateMagicLink } from '../utils/generateMagicLink';
 
+import { Donator } from '../../shared/database/entities/Donator';
+import { User } from '../../shared/database/entities/User';
+
 @Injectable()
 export class DonatorsActions {
   constructor(
@@ -46,5 +49,20 @@ export class DonatorsActions {
 
   async listNgos(page: number, limit: number) {
     return this.donatorService.findAllJuridicalPerson({ page, limit });
+  }
+
+  async show(donator: Donator, user: User) {
+    const { id, name, type, document, birth, createdAt, updatedAt } = donator;
+    const { email } = user;
+    return {
+      id,
+      name,
+      email,
+      type,
+      document,
+      birth,
+      createdAt,
+      updatedAt,
+    };
   }
 }

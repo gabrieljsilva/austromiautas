@@ -86,7 +86,7 @@ import { seedPermissions } from './seeders/permissions';
       resource: '/donators/contacts',
     },
     {
-      role: 'guest',
+      role: 'donator',
       method: 'GET',
       resource: '/donators',
     },
