@@ -52,7 +52,7 @@ export class DonatorsActions {
   }
 
   async show(donator: Donator, user: User) {
-    const { id, name, type, document, birth, createdAt, updatedAt } = donator;
+    const { id, name, type, document, birth, avatar, createdAt, updatedAt } = donator;
     const { email } = user;
     return {
       id,
@@ -61,6 +61,7 @@ export class DonatorsActions {
       type,
       document,
       birth,
+      avatar,
       createdAt,
       updatedAt,
     };
