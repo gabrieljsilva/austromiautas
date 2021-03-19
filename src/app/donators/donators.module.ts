@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 import { DonatorsController } from './donators.controller';
 import { DonatorsService } from './donators.service';
@@ -12,7 +14,13 @@ import { Role } from '../../shared/database/entities/Role';
 import { UserRole } from '../../shared/database/entities/UserRole';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Donator, User, Role, UserRole])],
+  imports: [
+    TypeOrmModule.forFeature([Donator, User, Role, UserRole]),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, '..', '..', '..', 'uploads'),
+      serveRoot: '/static',
+    }),
+  ],
   controllers: [DonatorsController],
   providers: [DonatorsService, DonatorsActions, EmailsService],
   exports: [DonatorsService],

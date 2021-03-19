@@ -30,6 +30,9 @@ export class Donator {
   birth: Date;
 
   @Column()
+  avatar: string;
+
+  @Column()
   userId: string;
 
   @OneToOne(() => User)

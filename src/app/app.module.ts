@@ -14,6 +14,7 @@ import { AddressesModule } from './donators/addresses/addresses.module';
 import { ContactsModule } from './donators/contacts/contacts.module';
 import { PetsModule } from './pets/pets.module';
 import { ComorbitiesModule } from './pets/comorbities/comorbities.module';
+import { AvatarModule } from './donators/avatar/avatar.module';
 
 import { User } from 'src/shared/database/entities/User';
 import { Role } from '../shared/database/entities/Role';
@@ -34,6 +35,7 @@ import { UserRole } from '../shared/database/entities/UserRole';
     ContactsModule,
     PetsModule,
     ComorbitiesModule,
+    AvatarModule,
   ],
   controllers: [AppController],
   providers: [AppService],
