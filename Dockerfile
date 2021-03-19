@@ -11,4 +11,4 @@ COPY package*.json yarn.lock ./
 COPY . .
 COPY --from=development /usr/app/dist ./dist
 RUN rm .env
-CMD ["node", "dist/main"]
+CMD ["npm", "start"]

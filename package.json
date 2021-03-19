@@ -54,7 +54,8 @@
     "rxjs": "^6.6.3",
     "swagger-ui-express": "^4.1.6",
     "ts-node": "^9.1.1",
-    "typeorm": "^0.2.29"
+    "typeorm": "^0.2.29",
+    "typescript": "^4.0.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.1",
@@ -80,8 +81,7 @@
     "supertest": "^6.0.0",
     "ts-jest": "^26.4.3",
     "ts-loader": "^8.0.8",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.0.5"
+    "tsconfig-paths": "^3.9.0"
   },
   "jest": {
     "moduleFileExtensions": [
