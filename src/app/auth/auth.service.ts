@@ -17,7 +17,7 @@ export class AuthService {
   ) {}
 
   async onModuleInit() {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.ALLOW_INSECURE_REQUESTS === 'true') {
       const localHostnames = ['localhost', '0.0.0.0', '127.0.0.1'];
       await Promise.all(
         localHostnames.map(async (hostname) => {

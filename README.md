@@ -15,24 +15,26 @@ npm install
 ## Environment variables
 To ensure that our project runs smoothly, we need to declare some environment variables, they are:
 
-| NAME             | DESCRIPTION                                                                                 | EXAMPLES               |
-|------------------|---------------------------------------------------------------------------------------------|------------------------|
-| APP_HOST         | The host name that will be used to run the application.                                     | localhost              |
-| APP_PORT         | The port that will be used to run the application.                                          | 3333                   |
-| APP_PROTOCOL     | The protocol that will be used by the application (http or https).                          | http                   |
-| APP_SECRET       | Private key used to encrypt application data.                                               | SomeHashedSecretString |
-| DB_HOST          | The host name of the database.                                                              | localhost              |
-| DB_PORT          | The database port.                                                                          | 5432                   |
-| DB_USER          | The database user.                                                                          | docker                 |
-| DB_PASSWORD      | The password for the database user.                                                         | docker                 |
-| DB_NAME          | The name of the database.                                                                   | austromiautas          |
-| REDIS_HOST       | The host name of the redis database.                                                        | localhost              |
-| REDIS_PORT       | The port of the redis database.                                                             | 6379                   |
-| SMTP_HOST        | The name of the SMTP host that will be used as a relay by e-mail services.                  | smtp.mailtrap.io       |
-| SMTP_PORT        | The SMTP port that will be used as a relay by e-mail services.                              | 2525                   |
-| SMTP_USER        | The SMTP user that will be used as a relay by e-mail services.                              | your_smtp_username     |
-| SMTP_PASSWORD    | The SMTP password that will be used as a relay by e-mail services.                          | your_smtp_password     |
-| ENABLE_HTTP_LOGS | Displays http request logs                                                                  | true                   |
+| NAME                    | DESCRIPTION                                                                                 | EXAMPLES               |
+|-------------------------|---------------------------------------------------------------------------------------------|------------------------|
+| APP_HOST                | The host name that will be used to run the application.                                     | localhost              |
+| APP_PORT                | The port that will be used to run the application.                                          | 3333                   |
+| APP_PROTOCOL            | The protocol that will be used by the application (http or https).                          | http                   |
+| APP_SECRET              | Private key used to encrypt application data.                                               | SomeHashedSecretString |
+| DB_HOST                 | The host name of the database.                                                              | localhost              |
+| DB_PORT                 | The database port.                                                                          | 5432                   |
+| DB_USER                 | The database user.                                                                          | docker                 |
+| DB_PASSWORD             | The password for the database user.                                                         | docker                 |
+| DB_NAME                 | The name of the database.                                                                   | austromiautas          |
+| REDIS_HOST              | The host name of the redis database.                                                        | localhost              |
+| REDIS_PORT              | The port of the redis database.                                                             | 6379                   |
+| SMTP_HOST               | The name of the SMTP host that will be used as a relay by e-mail services.                  | smtp.mailtrap.io       |
+| SMTP_PORT               | The SMTP port that will be used as a relay by e-mail services.                              | 2525                   |
+| SMTP_USER               | The SMTP user that will be used as a relay by e-mail services.                              | your_smtp_username     |
+| SMTP_PASSWORD           | The SMTP password that will be used as a relay by e-mail services.                          | your_smtp_password     |
+| ENABLE_HTTP_LOGS        | Displays http request logs                                                                  | true                   |
+| ALLOW_INSECURE_REQUESTS | Allow requests without an access token                                                      | true                   |
+
 
 To load them, create a file called ".env" at the root of the project and fill in the environment variables above. All of the above environment variables are mandatory.
 
@@ -167,6 +169,7 @@ This project has two authorization systems, we can categorize them in:
 ### Passive authorization
 This type of authorization determines that only users with a passive token will be able to access the API endpoints, that is, all endpoints are restricted, only those who have a passive token will be able to access the API.
 This system is used to control the general use of the API. In addition to the passive token, other information is used to determine who has authorization and this information is the hostname and protocol (http or https) of the client that is consuming the API. The passive token must be passed as a header with the name "X-API-TOKEN".
+In development environments, you can use the environment variable "ALLOW_INSECURE_REQUESTS = true" to disable the need for a passive token, this will create 3 tokens in the database pointing to the following addresses "http: // localhost: 80", "http://127.0.0.1:80" and "http://0.0.0.0:80". When making a request, the customer must be at one of these addresses. In addition, you can change the access token port manually later.
 
 ### Active authorization
 Active authorization determines that only users with an active token will be able to access protected endpoints. Essentially, active tokens are in the form of JWT (json web tokens) and it carries the identification of the user who is accessing the endpoints. Active tokens have an expiration time that can vary according to their purpose. Active token must be passed as Bearer Token.
