@@ -17,6 +17,7 @@ import { seedPermissions } from './seeders/permissions';
     '/users/activate',
     '/pets',
     '/pets/:id',
+    '/pets/:id/avatar',
     '/pets/:id/adopt',
     '/pets/:id/adopt/confirm',
   ]);
@@ -155,6 +156,11 @@ import { seedPermissions } from './seeders/permissions';
       role: 'donator',
       method: 'DELETE',
       resource: '/donators/avatar',
+    },
+    {
+      role: 'donator',
+      method: 'PUT',
+      resource: '/pets/:id/avatar',
     },
   ]);
 })();

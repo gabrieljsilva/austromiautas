@@ -67,4 +67,7 @@ export class Pet {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Column()
+  avatar: string;
 }

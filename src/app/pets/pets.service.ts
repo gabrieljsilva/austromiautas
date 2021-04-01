@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import { Pet } from '../../shared/database/entities/Pet';
 
@@ -38,6 +40,7 @@ export class PetsService {
         'pet.adopterCPF',
         'pet.adopterBirth',
         'pet.adoptionStatus',
+        'pet.avatar',
         'pet.createdAt',
         'pet.updatedAt',
       ])
@@ -64,6 +67,7 @@ export class PetsService {
         'adopterCPF',
         'adopterBirth',
         'adoptionStatus',
+        'avatar',
         'createdAt',
         'updatedAt',
       ],
@@ -97,7 +101,7 @@ export class PetsService {
   async findById(petId: string) {
     const qb = this.petRepository.createQueryBuilder('pet');
 
-    const pets = await qb
+    const pet = await qb
       .leftJoinAndSelect('pet.donator', 'donator')
       .select([
         'pet.id',
@@ -115,14 +119,15 @@ export class PetsService {
         'pet.adoptionStatus',
         'pet.createdAt',
         'pet.updatedAt',
+        'pet.avatar',
         'donator.id',
         'donator.name',
         'donator.createdAt',
       ])
       .where('pet.id = :pet', { pet: petId })
-      .getMany();
+      .getOne();
 
-    return pets;
+    return pet;
   }
 
   async delete(petId: string) {
@@ -143,5 +148,36 @@ export class PetsService {
   async confirmAdoption(petId: string) {
     await this.petRepository.update({ id: petId }, { adoptionStatus: ADOPTION_STATUS.adopted });
     return this.petRepository.findOne({ where: { id: petId } });
+  }
+
+  async rejectAdoption(petId: string) {
+    await this.petRepository.update(
+      { id: petId },
+      { adoptionStatus: ADOPTION_STATUS.waiting, adopterName: '', adopterBirth: '', adopterCPF: '' },
+    );
+    return this.petRepository.findOne({ where: { id: petId } });
+  }
+
+  async setAvatar(pet: Pet, avatar: Express.Multer.File) {
+    pet.avatar = avatar?.filename || null;
+    await this.petRepository.save(pet);
+    return pet;
+  }
+
+  async deleteAvatarFromDiskStorage(filename: string) {
+    if (filename) {
+      return new Promise((resolve, reject) => {
+        fs.unlink(path.resolve(__dirname, '../../..', 'uploads', 'images', filename), (err) => {
+          if (err) {
+            if (err.code === 'ENOENT') {
+              return resolve(filename);
+            }
+            return reject(err.code);
+          }
+          return resolve({ filename });
+        });
+      });
+    }
+    return { filename };
   }
 }

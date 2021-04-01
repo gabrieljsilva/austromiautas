@@ -1,5 +1,6 @@
-import { Controller, Body, UseInterceptors, Param, Get, Post, Delete, Put } from '@nestjs/common';
+import { Controller, Body, UseInterceptors, Param, Get, Post, Delete, Put, UploadedFile } from '@nestjs/common';
 import { ApiTags, ApiSecurity, ApiBearerAuth } from '@nestjs/swagger';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { PetsActions } from './pets.actions';
 
@@ -11,6 +12,7 @@ import { DonatorInterceptor } from '../donators/donator.interceptor';
 import { CreatePetDTO } from './DTO/createPet.dto';
 import { UpdatePetDTO } from './DTO/updatePet.dto';
 import { AdoptPetDTO } from './DTO/adoptPet.dto';
+import { avatarStorage } from './pets.disk.storage';
 
 import { Donator as DonatorEntity } from '../../shared/database/entities/Donator';
 
@@ -58,6 +60,25 @@ export class PetsController {
   @UseInterceptors(DonatorInterceptor)
   async confirmAdoption(@Param('id') petId: string, @Donator() donator: DonatorEntity) {
     return this.petsActions.confirmAdoption(petId, donator);
+  }
+
+  @ApiBearerAuth()
+  @Put('/:id/adopt/reject')
+  @UseInterceptors(DonatorInterceptor)
+  async rejectAdoption(@Param('id') petId: string, @Donator() donator: DonatorEntity) {
+    return this.petsActions.rejectAdoption(petId, donator);
+  }
+
+  @ApiBearerAuth()
+  @Put('/:id/avatar')
+  @UseInterceptors(FileInterceptor('avatar', { storage: avatarStorage }))
+  @UseInterceptors(DonatorInterceptor)
+  async changeAvatar(
+    @Param('id') petId: string,
+    @Donator() donator: DonatorEntity,
+    @UploadedFile() avatar: Express.Multer.File,
+  ) {
+    return this.petsActions.changeAvatar(petId, avatar);
   }
 
   @Post('/:id/adopt')

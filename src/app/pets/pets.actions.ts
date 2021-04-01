@@ -97,6 +97,25 @@ export class PetsActions {
     return pet;
   }
 
+  async rejectAdoption(petId: string, donator: Donator) {
+    const petNotExists = !(await this.petsService.checkIfDonatorPetExists(petId, donator.id));
+
+    if (petNotExists) {
+      throw new NotFoundException('pet not found');
+    }
+
+    const petIsNotInProgresss = !(await this.petsService.checkIfDonatorPetIsInProgress(petId, donator.id));
+
+    if (petIsNotInProgresss) {
+      throw new BadRequestException('the adoption process has not started or pet has already been adopted');
+    }
+
+    const pet = await this.petsService.confirmAdoption(petId);
+    delete pet.donatorId;
+
+    return pet;
+  }
+
   async adopt(adoptPetDTO: AdoptPetDTO, petId: string) {
     const petNotExists = !(await this.petsService.checkIfPetExists(petId));
 
@@ -113,5 +132,28 @@ export class PetsActions {
     await this.petsService.adopt(adoptPetDTO, petId);
     const pet = await this.petsService.findById(petId);
     return pet;
+  }
+
+  async changeAvatar(petId: string, avatar: Express.Multer.File) {
+    const petNotExists = !(await this.petsService.checkIfPetExists(petId));
+
+    if (petNotExists) {
+      throw new NotFoundException('pet not found');
+    }
+
+    const pet = await this.petsService.findById(petId);
+    delete pet.donator;
+
+    const petIsAdopted = pet.adoptionStatus === ADOPTION_STATUS.adopted;
+
+    if (petIsAdopted) {
+      throw new BadRequestException('cannot change avatar when pet is adopeted');
+    }
+
+    if (!avatar) {
+      await this.petsService.deleteAvatarFromDiskStorage(pet.avatar);
+    }
+
+    return this.petsService.setAvatar(pet, avatar);
   }
 }
