@@ -9,7 +9,7 @@ export class AvatarActions {
 
   async upload(avatar: Express.Multer.File, donator: Donator) {
     await this.avatarService.setAvatar(donator.id, avatar.filename);
-    return { path: `/static/images/${avatar.filename}` };
+    return { path: `${avatar.filename}` };
   }
 
   async delete(donator: Donator) {
