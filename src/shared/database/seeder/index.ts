@@ -149,6 +149,11 @@ import { seedPermissions } from './seeders/permissions';
     },
     {
       role: 'donator',
+      method: 'PUT',
+      resource: '/pets/:id/adopt/reject',
+    },
+    {
+      role: 'donator',
       method: 'POST',
       resource: '/donators/avatar',
     },
