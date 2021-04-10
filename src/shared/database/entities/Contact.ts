@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 
 import { CONTACTS } from '../../../shared/enums/CONTACTS';
 
@@ -18,7 +26,8 @@ export class Contact {
   @Column()
   donatorId: string;
 
-  @ManyToOne(() => Donator)
+  @ManyToOne(() => Donator, (donator) => donator.contacts)
+  @JoinColumn({ name: 'donatorId', referencedColumnName: 'id' })
   donator: Donator;
 
   @CreateDateColumn()

@@ -182,6 +182,9 @@ export class PetsService {
   }
 
   async findPetOwner(petId: string) {
-    return this.petRepository.findOne({ where: { id: petId }, relations: ['donator'] });
+    return this.petRepository.findOne({
+      where: { id: petId },
+      relations: ['donator', 'donator.contacts'],
+    });
   }
 }

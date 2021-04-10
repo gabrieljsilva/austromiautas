@@ -39,7 +39,7 @@ export class Donator {
   @JoinColumn({ referencedColumnName: 'id', name: 'userId' })
   user: User;
 
-  @OneToMany(() => Contact, (donator) => donator.contact)
+  @OneToMany(() => Contact, (contact) => contact.donator)
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
   contacts: Contact[];
 

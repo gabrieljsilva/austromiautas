@@ -159,7 +159,6 @@ export class PetsActions {
 
   async getOwner(petId: string) {
     const pet = await this.petsService.findPetOwner(petId);
-
     if (!pet) {
       throw new NotFoundException('pet not found');
     }
