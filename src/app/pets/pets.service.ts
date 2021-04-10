@@ -180,4 +180,8 @@ export class PetsService {
     }
     return { filename };
   }
+
+  async findPetOwner(petId: string) {
+    return this.petRepository.findOne({ where: { id: petId }, relations: ['donator'] });
+  }
 }

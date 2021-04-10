@@ -156,4 +156,21 @@ export class PetsActions {
 
     return this.petsService.setAvatar(pet, avatar);
   }
+
+  async getOwner(petId: string) {
+    const pet = await this.petsService.findPetOwner(petId);
+
+    if (!pet) {
+      throw new NotFoundException('pet not found');
+    }
+
+    const { donator } = pet;
+
+    delete donator.type;
+    delete donator.document;
+    delete donator.birth;
+    delete donator.userId;
+
+    return donator;
+  }
 }

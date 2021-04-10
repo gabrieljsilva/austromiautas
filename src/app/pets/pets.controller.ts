@@ -90,4 +90,10 @@ export class PetsController {
   async show(@Param('id') petId: string) {
     return this.petsActions.show(petId);
   }
+
+  @Get('/:id/owner')
+  @UseInterceptors(DonatorInterceptor)
+  async getOwner(@Param('id') petId: string) {
+    return this.petsActions.getOwner(petId);
+  }
 }

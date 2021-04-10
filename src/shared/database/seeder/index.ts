@@ -20,6 +20,8 @@ import { seedPermissions } from './seeders/permissions';
     '/pets/:id/avatar',
     '/pets/:id/adopt',
     '/pets/:id/adopt/confirm',
+    '/pets/:id/adopt/reject',
+    '/pets/:id/owner',
   ]);
   await seedPermissions(connection, [
     {
@@ -166,6 +168,11 @@ import { seedPermissions } from './seeders/permissions';
       role: 'donator',
       method: 'PUT',
       resource: '/pets/:id/avatar',
+    },
+    {
+      role: 'guest',
+      method: 'GET',
+      resource: '/pets/:id/owner',
     },
   ]);
 })();
